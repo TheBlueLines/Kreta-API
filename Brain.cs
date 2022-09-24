@@ -60,7 +60,7 @@ namespace TTMC.Kréta
 			}
 			return new();
 		}
-		public List<Mulasztas> Mulasztasok(DateTime? datumTol = null, DateTime? datumIg = null)
+		public List<Absences> Mulasztasok(DateTime? datumTol = null, DateTime? datumIg = null)
 		{
 			if (client.DefaultRequestHeaders.Contains("Authorization"))
 			{
@@ -74,15 +74,15 @@ namespace TTMC.Kréta
 					url += "?datumTol=" + datumIg.Value.ToUniversalTime().ToString("o", CultureInfo.InvariantCulture);
 				}
 				string json = client.GetStringAsync(url).Result;
-				List<Mulasztas>? mulasztasok = JsonSerializer.Deserialize<List<Mulasztas>>(json);
-				if (mulasztasok != null)
+				List<Absences>? absences = JsonSerializer.Deserialize<List<Absences>>(json);
+				if (absences != null)
 				{
-					return mulasztasok;
+					return absences;
 				}
 			}
 			return new();
 		}
-		public List<Ertekeles> Ertekelesek(DateTime? datumTol = null, DateTime? datumIg = null)
+		public List<Evaluations> Ertekelesek(DateTime? datumTol = null, DateTime? datumIg = null)
 		{
 			if (client.DefaultRequestHeaders.Contains("Authorization"))
 			{
@@ -96,10 +96,10 @@ namespace TTMC.Kréta
 					url += "?datumTol=" + datumIg.Value.ToUniversalTime().ToString("o", CultureInfo.InvariantCulture);
 				}
 				string json = client.GetStringAsync(url).Result;
-				List <Ertekeles>? ertekelesek = JsonSerializer.Deserialize<List<Ertekeles>>(json);
-				if (ertekelesek != null)
+				List <Evaluations>? evaluations = JsonSerializer.Deserialize<List<Evaluations>>(json);
+				if (evaluations != null)
 				{
-					return ertekelesek;
+					return evaluations;
 				}
 			}
 			return new();

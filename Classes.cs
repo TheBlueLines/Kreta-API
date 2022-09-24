@@ -214,7 +214,7 @@ namespace TTMC.Kréta
 		public int ErtekelesekMegjelenitesenekKesleltetesenekMerteke { get; set; }
 		public string? KovetkezoTelepitesDatuma { get; set; }
 	}
-	public class Mulasztas
+	public class Absences
 	{
 		public string? Uid { get; set; }
 		public Four? Tantargy { get; set; }
@@ -235,7 +235,7 @@ namespace TTMC.Kréta
 		public string? VegDatum { get; set; }
 		public int? Oraszam { get; set; }
 	}
-	public class Ertekeles
+	public class Evaluations
 	{
 		public string? Uid { get; set; }
 		public string? RogzitesDatuma { get; set; }
