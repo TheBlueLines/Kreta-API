@@ -8,7 +8,7 @@ Account? account = new(string instituteCode, string username, string password);
 ```
 ## refresh Token
 ```csharp
-me.RefreshToken();
+account.RefreshToken();
 ```
 ## Get Timetable
 ```csharp

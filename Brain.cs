@@ -28,6 +28,7 @@ namespace TTMC.Kréta
 		public LoginDetails? loginDetails = null;
 		public HttpClient client = new();
 		private string institute = string.Empty;
+		private Task? autoRefresh = null;
 		public Account(string instituteCode, string username, string password, string userAgent = "KretaAPI")
 		{
 			HttpRequestMessage req = new HttpRequestMessage(HttpMethod.Post, "https://idp.e-kreta.hu/connect/token");
@@ -45,7 +46,14 @@ namespace TTMC.Kréta
 				institute = instituteCode;
 				client.DefaultRequestHeaders.UserAgent.ParseAdd(userAgent);
 				client.DefaultRequestHeaders.Add("Authorization", loginDetails.token_type + " " + loginDetails.access_token);
+				autoRefresh = new Task(() => AutoRefresh(loginDetails.expires_in));
+				autoRefresh.Start();
 			}
+		}
+		private void AutoRefresh(int num)
+		{
+			Thread.Sleep(num);
+			RefreshToken();
 		}
 		public List<Timetable> OrarendElemek(DateTime datumTol, DateTime datumIg)
 		{
@@ -115,6 +123,8 @@ namespace TTMC.Kréta
 				{
 					client.DefaultRequestHeaders.Remove("Authorization");
 					client.DefaultRequestHeaders.Add("Authorization", loginDetails.token_type + " " + loginDetails.access_token);
+					autoRefresh = new Task(() => AutoRefresh(loginDetails.expires_in));
+					autoRefresh.Start();
 				}
 			}
 		}
