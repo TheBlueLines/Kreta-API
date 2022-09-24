@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 
@@ -17,10 +16,11 @@ namespace TTMC.Kréta
 			httpClient.DefaultRequestHeaders.Add("apiKey", apiKey);
 			httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(agent);
 		}
-		public List<Institute>? Institute()
+		public List<Institute> Institutes()
 		{
 			string resp = httpClient.GetStringAsync("https://kretaglobalmobileapi2.ekreta.hu:443/api/v3/Institute").Result;
-			return JsonSerializer.Deserialize<List<Institute>>(resp);
+			List<Institute>? institutes = JsonSerializer.Deserialize<List<Institute>>(resp);
+			return institutes == null ? new() : institutes;
 		}
 	}
 	public class Account
@@ -59,7 +59,9 @@ namespace TTMC.Kréta
 		{
 			if (client.DefaultRequestHeaders.Contains("Authorization"))
 			{
-				string json = client.GetStringAsync("https://" + institute + ".e-kreta.hu/ellenorzo/V3/Sajat/OrarendElemek?datumTol=" + datumTol.ToUniversalTime().ToString("o", CultureInfo.InvariantCulture) + "&datumIg=" + datumIg.ToUniversalTime().ToString("o", CultureInfo.InvariantCulture)).Result;
+				string one = datumTol.ToString("u").Split(' ')[0];
+				string two = datumIg.ToString("u").Split(' ')[0];
+				string json = client.GetStringAsync("https://" + institute + ".e-kreta.hu/ellenorzo/V3/Sajat/OrarendElemek?datumTol=" + one + "&datumIg=" + two).Result;
 				List<Timetable>? tt = JsonSerializer.Deserialize<List<Timetable>>(json);
 				if (tt != null)
 				{
@@ -75,11 +77,11 @@ namespace TTMC.Kréta
 				string url = "https://" + institute + ".e-kreta.hu/ellenorzo/V3/Sajat/Mulasztasok";
 				if (datumTol != null)
 				{
-					url += "?datumTol=" + datumTol.Value.ToUniversalTime().ToString("o", CultureInfo.InvariantCulture);
+					url += "?datumTol=" + datumTol.Value.ToString("u").Split(' ')[0];
 				}
 				if (datumIg != null)
 				{
-					url += "?datumTol=" + datumIg.Value.ToUniversalTime().ToString("o", CultureInfo.InvariantCulture);
+					url += "?datumTol=" + datumIg.Value.ToString("u").Split(' ')[0];
 				}
 				string json = client.GetStringAsync(url).Result;
 				List<Absences>? absences = JsonSerializer.Deserialize<List<Absences>>(json);
@@ -97,11 +99,11 @@ namespace TTMC.Kréta
 				string url = "https://" + institute + ".e-kreta.hu/ellenorzo/V3/Sajat/Ertekelesek";
 				if (datumTol != null)
 				{
-					url += "?datumTol=" + datumTol.Value.ToUniversalTime().ToString("o", CultureInfo.InvariantCulture);
+					url += "?datumTol=" + datumTol.Value.ToString("u").Split(' ')[0];
 				}
 				if (datumIg != null)
 				{
-					url += "?datumTol=" + datumIg.Value.ToUniversalTime().ToString("o", CultureInfo.InvariantCulture);
+					url += "?datumTol=" + datumIg.Value.ToString("u").Split(' ')[0];
 				}
 				string json = client.GetStringAsync(url).Result;
 				List <Evaluations>? evaluations = JsonSerializer.Deserialize<List<Evaluations>>(json);
@@ -154,7 +156,7 @@ namespace TTMC.Kréta
 				string url = "https://" + institute + ".e-kreta.hu/ellenorzo/V3/Sajat/BejelentettSzamonkeresek";
 				if (datumTol != null)
 				{
-					url += "?datumTol=" + datumTol.Value.ToString("o", CultureInfo.InvariantCulture);
+					url += "?datumTol=" + datumTol.Value.ToString("u").Split(' ')[0];
 				}
 				string json = client.GetStringAsync(url).Result;
 				List<Exam>? exams = JsonSerializer.Deserialize<List<Exam>>(json);

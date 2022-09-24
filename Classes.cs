@@ -173,11 +173,11 @@ namespace TTMC.Kréta
 		public ushort? SzuletesiHonap { get; set; }
 		public ushort? SzuletesiNap { get; set; }
 		public bool? IsEszkozKiosztva { get; set; }
-		public List<Gondviselo>? Gondviselok { get; set; }
+		public List<Tutelary>? Gondviselok { get; set; }
 		public Bank? Bankszamla { get; set; }
-		public Intezmeny? Intezmeny { get; set; }
+		public School? Intezmeny { get; set; }
 	}
-	public class Gondviselo
+	public class Tutelary
 	{
 		public string? Uid { get; set; }
 		public string? IdpUniqueId { get; set; }
@@ -193,20 +193,20 @@ namespace TTMC.Kréta
 		public string? BankszamlaTulajdonosNeve { get; set; }
 		public bool? IsReadOnly { get; set; }
 	}
-	public class Intezmeny
+	public class School
 	{
 		public string? Uid { get; set; }
 		public string? RovidNev { get; set; }
-		public List<Rendszermodul>? Rendszermodulok { get; set; }
-		public TestreszabasBeallitasok? TestreszabasBeallitasok { get; set; }
+		public List<CoreModule>? Rendszermodulok { get; set; }
+		public CustomSettings? TestreszabasBeallitasok { get; set; }
 	}
-	public class Rendszermodul
+	public class CoreModule
 	{
 		public bool IsAktiv { get; set; }
 		public string? Tipus { get; set; }
 		public string? Url { get; set; }
 	}
-	public class TestreszabasBeallitasok
+	public class CustomSettings
 	{
 		public bool IsDiakRogzithetHaziFeladatot { get; set; }
 		public bool IsTanorakTemajaMegtekinthetoEllenorzoben { get; set; }
@@ -218,7 +218,7 @@ namespace TTMC.Kréta
 	{
 		public string? Uid { get; set; }
 		public Four? Tantargy { get; set; }
-		public Ora? Ora { get; set; }
+		public Class? Ora { get; set; }
 		public string? Datum { get; set; }
 		public string? RogzitoTanarNeve { get; set; }
 		public Three? Tipus { get; set; }
@@ -229,7 +229,7 @@ namespace TTMC.Kréta
 		public string? IgazolasTipusa { get; set; }
 		public One? OsztalyCsoport { get; set; }
 	}
-	public class Ora
+	public class Class
 	{
 		public string? KezdoDatum { get; set; }
 		public string? VegDatum { get; set; }

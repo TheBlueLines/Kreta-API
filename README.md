@@ -2,9 +2,17 @@
 
 Kréta API Library for C# applications (DOTNET 6.0)
 
+## Kréta Engine
+```csharp
+Engine engine = new(string apiKey = "7856d350-1fda-45f5-822d-e1a2f3f1acf0", string userAgent = "KretaAPI");
+```
+## Get all institutes
+```csharp
+List<Institute> institutes = engine.Institutes();
+```
 ## Login
 ```csharp
-Account? account = new(string instituteCode, string username, string password);
+Account account = new(string instituteCode, string username, string password, string userAgent = "KretaAPI");
 ```
 ## refresh Token
 ```csharp
