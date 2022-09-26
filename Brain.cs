@@ -1,26 +1,42 @@
-﻿using System.Security.Cryptography;
-using System.Text;
+﻿using System.Text;
 using System.Text.Json;
 
 namespace TTMC.Kréta
 {
 	public class Engine
 	{
-		HMACSHA512 hmac = new();
-		HttpClient httpClient = new HttpClient();
-		private string agent = "KretaAPI";
-		public Engine(string apiKey = "7856d350-1fda-45f5-822d-e1a2f3f1acf0", string userAgent = "KretaAPI")
+		HttpClient httpClient = new();
+		public Engine(string userAgent = "KretaAPI", string apiKey = "7856d350-1fda-45f5-822d-e1a2f3f1acf0")
 		{
-			agent = userAgent;
-			hmac.Key = Encoding.ASCII.GetBytes("baSsxOwlU1jM");
 			httpClient.DefaultRequestHeaders.Add("apiKey", apiKey);
-			httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(agent);
+			httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(userAgent);
 		}
-		public List<Institute> Institutes()
+		public List<Institute> Institutes(params ushort[] ids)
 		{
-			string resp = httpClient.GetStringAsync("https://kretaglobalmobileapi2.ekreta.hu:443/api/v3/Institute").Result;
-			List<Institute>? institutes = JsonSerializer.Deserialize<List<Institute>>(resp);
-			return institutes == null ? new() : institutes;
+			if (ids.Length == 0)
+			{
+				string resp = httpClient.GetStringAsync("https://kretaglobalmobileapi2.ekreta.hu/api/v3/Institute").Result;
+				List<Institute>? back = JsonSerializer.Deserialize<List<Institute>>(resp);
+				return back == null ? new() : back;
+			}
+			else
+			{
+				List<Institute> back = new();
+				foreach (ushort value in ids)
+				{
+					Institute? tmp = Institute(value);
+					if (tmp != null)
+					{
+						back.Add(tmp);
+					}
+				}
+				return back;
+			}
+		}
+		public Institute? Institute(ushort id)
+		{
+			string resp = httpClient.GetStringAsync("https://kretaglobalmobileapi2.ekreta.hu/api/v3/Institute/" + id).Result;
+			return JsonSerializer.Deserialize<Institute>(resp);
 		}
 	}
 	public class Account
@@ -31,14 +47,14 @@ namespace TTMC.Kréta
 		private Task? autoRefresh = null;
 		public Account(string instituteCode, string username, string password, string userAgent = "KretaAPI")
 		{
-			HttpRequestMessage req = new HttpRequestMessage(HttpMethod.Post, "https://idp.e-kreta.hu/connect/token");
+			HttpClient httpClient = new();
 			AuthorizationPolicy ap = new(instituteCode, username);
-			req.Headers.UserAgent.ParseAdd(userAgent);
-			req.Headers.Add("X-Authorizationpolicy-Key", ap.key);
-			req.Headers.Add("X-Authorizationpolicy-Version", ap.version);
-			req.Headers.Add("X-Authorizationpolicy-Nonce", ap.nonce);
-			req.Content = new StringContent("userName=" + username + "&password=" + password + "&institute_code=" + instituteCode + "&grant_type=password&client_id=kreta-ellenorzo-mobile-android", Encoding.UTF8, "application/x-www-form-urlencoded");
-			HttpResponseMessage resp = client.Send(req);
+			httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(userAgent);
+			httpClient.DefaultRequestHeaders.Add("X-Authorizationpolicy-Key", ap.key);
+			httpClient.DefaultRequestHeaders.Add("X-Authorizationpolicy-Version", ap.version);
+			httpClient.DefaultRequestHeaders.Add("X-Authorizationpolicy-Nonce", ap.nonce);
+			StringContent req = new StringContent("userName=" + username + "&password=" + password + "&institute_code=" + instituteCode + "&grant_type=password&client_id=kreta-ellenorzo-mobile-android", Encoding.UTF8, "application/x-www-form-urlencoded");
+			HttpResponseMessage resp = httpClient.PostAsync("https://idp.e-kreta.hu/connect/token", req).Result;
 			string json = resp.Content.ReadAsStringAsync().Result;
 			loginDetails = JsonSerializer.Deserialize<LoginDetails>(json);
 			if (loginDetails != null)
