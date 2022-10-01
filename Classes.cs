@@ -1,5 +1,4 @@
-﻿using System.Security.Principal;
-using System.Text.Json;
+﻿using System.Text.Json;
 
 namespace TTMC.Kréta
 {
@@ -254,6 +253,29 @@ namespace TTMC.Kréta
 		public ushort? SulySzazalekErteke { get; set; }
 		public string? SzovegesErtekelesRovidNev { get; set; }
 		public One? OsztalyCsoport { get; set; }
+		public byte? SortIndex { get; set; }
+	}
+	public class Homework
+	{
+		public string? Uid { get; set; }
+		public string? TantargyNeve { get; set; }
+		public string? RogzitoTanarNeve { get; set; }
+		public string? Szoveg { get; set; }
+		public string? FeladasDatuma { get; set; }
+		public string? HataridoDatuma { get; set; }
+		public string? RogzitesIdopontja { get; set; }
+		public bool? IsTanarRogzitette { get; set; }
+		public bool? IsTanuloHaziFeladatEnabled { get; set; }
+		public bool? IsMegoldva { get; set; }
+		public bool? IsBeadhato { get; set; }
+		public One? OsztalyCsoport { get; set; }
+		public bool? IsCsatolasEngedelyezes { get; set; }
+	}
+	public class Subject
+	{
+		public string? Uid { get; set; }
+		public string? Nev { get; set; }
+		public Three? Kategoria { get; set; }
 		public byte? SortIndex { get; set; }
 	}
 }

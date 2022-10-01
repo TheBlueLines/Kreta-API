@@ -53,8 +53,8 @@ namespace TTMC.Kréta
 			httpClient.DefaultRequestHeaders.Add("X-Authorizationpolicy-Key", ap.key);
 			httpClient.DefaultRequestHeaders.Add("X-Authorizationpolicy-Version", ap.version);
 			httpClient.DefaultRequestHeaders.Add("X-Authorizationpolicy-Nonce", ap.nonce);
-			StringContent req = new StringContent("userName=" + username + "&password=" + password + "&institute_code=" + instituteCode + "&grant_type=password&client_id=kreta-ellenorzo-mobile-android", Encoding.UTF8, "application/x-www-form-urlencoded");
-			HttpResponseMessage resp = httpClient.PostAsync("https://idp.e-kreta.hu/connect/token", req).Result;
+			StringContent req = new StringContent("userName=" + username + "&password=" + password + "&institute_code=" + instituteCode + "&grant_type=password&client_id=" + KretaAPI.clientId, Encoding.UTF8, "application/x-www-form-urlencoded");
+			HttpResponseMessage resp = httpClient.PostAsync(KretaAPI.login, req).Result;
 			string json = resp.Content.ReadAsStringAsync().Result;
 			loginDetails = JsonSerializer.Deserialize<LoginDetails>(json);
 			if (loginDetails != null)
@@ -192,6 +192,19 @@ namespace TTMC.Kréta
 				if (si != null)
 				{
 					return si;
+				}
+			}
+			return new();
+		}
+		public List<Homework> HaziFeladatok(DateTime datumTol)
+		{
+			if (client.DefaultRequestHeaders.Contains("Authorization"))
+			{
+				string json = client.GetStringAsync(KretaAPI.homework(institute, datumTol)).Result;
+				List<Homework>? homework = JsonSerializer.Deserialize<List<Homework>>(json);
+				if (homework != null)
+				{
+					return homework;
 				}
 			}
 			return new();

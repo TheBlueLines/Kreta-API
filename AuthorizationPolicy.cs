@@ -13,7 +13,7 @@ namespace TTMC.Kréta
 		public AuthorizationPolicy(string instituteCode, string username)
 		{
 			hmac.Key = Encoding.ASCII.GetBytes(code);
-			nonce = new HttpClient().GetStringAsync("https://idp.e-kreta.hu/nonce").Result;
+			nonce = new HttpClient().GetStringAsync(KretaAPI.nonce).Result;
 			byte[] data = Encoding.UTF8.GetBytes(instituteCode.ToUpper() + nonce + username.ToUpper());
 			byte[] bytes = hmac.ComputeHash(data);
 			key = Convert.ToBase64String(bytes);

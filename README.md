@@ -38,7 +38,7 @@ List<Message> messages = account.Postaladaelemek(0 (received) or 1 (sent) or 2 (
 ```csharp
 List<Exam> exams = account.BejelentettSzamonkeresek(DateTime? datumTol = null);
 ```
-## Exams
+## Get Student Info
 ```csharp
 StudentInfo studentInfo = account.TanuloAdatlap();
 ```
