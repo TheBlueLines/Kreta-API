@@ -6,7 +6,7 @@ Kréta API Library for C# applications (DOTNET 6.0)
 ```csharp
 Engine engine = new(string apiKey = "7856d350-1fda-45f5-822d-e1a2f3f1acf0", string userAgent = "KretaAPI");
 ```
-## Get all institutes
+## All institutes
 ```csharp
 List<Institute> institutes = engine.Institutes();
 ```
@@ -18,7 +18,7 @@ Account account = new(string instituteCode, string username, string password, st
 ```csharp
 account.RefreshToken();
 ```
-## Get Timetable
+## Timetable
 ```csharp
 List<Timetable> timetable = account.OrarendElemek(DateTime datumTol, DateTime datumIg);
 ```
@@ -30,7 +30,7 @@ List<Absences> absences = account.Mulasztasok(DateTime? datumTol = null, DateTim
 ```csharp
 List<Evaluations> evaluations = account.Ertekelesek(DateTime? datumTol = null, DateTime? datumIg = null);
 ```
-## Get all messages
+## Messages
 ```csharp
 List<Message> messages = account.Postaladaelemek(0 (received) or 1 (sent) or 2 (deleted));
 ```
@@ -38,14 +38,19 @@ List<Message> messages = account.Postaladaelemek(0 (received) or 1 (sent) or 2 (
 ```csharp
 List<Exam> exams = account.BejelentettSzamonkeresek(DateTime? datumTol = null);
 ```
-## Get Student Info
+## Student Info
 ```csharp
 StudentInfo studentInfo = account.TanuloAdatlap();
-## Get Homeworks
+```
+## Homeworks
 ```csharp
 List<Homework> homeworks = account.HaziFeladatok(DateTime? datumTol = null);
 ```
 ## Notes
 ```csharp
 List<Note> notes = account.Feljegyzesek();
+```
+## Capabilities
+```csharp
+School school = account.Intezmenyek();
 ```

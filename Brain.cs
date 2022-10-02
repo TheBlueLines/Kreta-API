@@ -240,5 +240,18 @@ namespace TTMC.Kréta
 			}
 			return new();
 		}
+		public School Intezmenyek()
+		{
+			if (client.DefaultRequestHeaders.Contains("Authorization"))
+			{
+				string json = client.GetStringAsync(KretaAPI.capabilities(institute)).Result;
+				School? school = JsonSerializer.Deserialize<School>(json);
+				if (school != null)
+				{
+					return school;
+				}
+			}
+			return new();
+		}
 	}
 }

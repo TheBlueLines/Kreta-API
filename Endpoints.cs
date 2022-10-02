@@ -13,6 +13,10 @@
 		{
 			return Kreta.Base(instituteCode) + KretaEndpoints.notes;
 		}
+		public static string capabilities(string instituteCode)
+		{
+			return Kreta.Base(instituteCode) + KretaEndpoints.capabilities;
+		}
 	}
 	internal class Kreta
 	{
