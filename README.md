@@ -41,4 +41,11 @@ List<Exam> exams = account.BejelentettSzamonkeresek(DateTime? datumTol = null);
 ## Get Student Info
 ```csharp
 StudentInfo studentInfo = account.TanuloAdatlap();
+## Get Homeworks
+```csharp
+List<Homework> homeworks = account.HaziFeladatok(DateTime? datumTol = null);
+```
+## Notes
+```csharp
+List<Note> notes = account.Feljegyzesek();
 ```

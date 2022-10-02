@@ -2,6 +2,13 @@
 
 namespace TTMC.Kréta
 {
+	public class MessageType
+	{
+		internal string? type { get; set; }
+		public static MessageType beerkezett = new() { type = "beerkezett" };
+		public static MessageType elkuldott = new() { type = "elkuldott" };
+		public static MessageType torolt = new() { type = "torolt" };
+	}
 	public class One
 	{
 		public string? Uid { get; set; }
@@ -46,7 +53,7 @@ namespace TTMC.Kréta
 	}
 	public class Message
 	{
-		public Account? account { get; set; }
+		internal Account? account { get; set; }
 		public int azonosito { get; set; }
 		public int uzenetAzonosito { get; set; }
 		public string? uzenetKuldesDatum { get; set; }
@@ -264,12 +271,12 @@ namespace TTMC.Kréta
 		public string? FeladasDatuma { get; set; }
 		public string? HataridoDatuma { get; set; }
 		public string? RogzitesIdopontja { get; set; }
-		public bool? IsTanarRogzitette { get; set; }
-		public bool? IsTanuloHaziFeladatEnabled { get; set; }
-		public bool? IsMegoldva { get; set; }
-		public bool? IsBeadhato { get; set; }
+		public bool IsTanarRogzitette { get; set; }
+		public bool IsTanuloHaziFeladatEnabled { get; set; }
+		public bool IsMegoldva { get; set; }
+		public bool IsBeadhato { get; set; }
 		public One? OsztalyCsoport { get; set; }
-		public bool? IsCsatolasEngedelyezes { get; set; }
+		public bool IsCsatolasEngedelyezes { get; set; }
 	}
 	public class Subject
 	{
@@ -277,5 +284,17 @@ namespace TTMC.Kréta
 		public string? Nev { get; set; }
 		public Three? Kategoria { get; set; }
 		public byte? SortIndex { get; set; }
+	}
+	public class Note
+	{
+		public string? Uid { get; set; }
+		public string? Cim { get; set; }
+		public string? Datum { get; set; }
+		public string? KeszitoTanarNeve { get; set; }
+		public string? KeszitesDatuma { get; set; }
+		public string? LattamozasDatuma { get; set; }
+		public One? OsztalyCsoport { get; set; }
+		public string? Tartalom { get; set; }
+		public Three? Tipus { get; set; }
 	}
 }

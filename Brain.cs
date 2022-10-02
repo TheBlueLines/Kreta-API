@@ -122,7 +122,7 @@ namespace TTMC.Kréta
 					url += "?datumTol=" + datumIg.Value.ToString("u").Split(' ')[0];
 				}
 				string json = client.GetStringAsync(url).Result;
-				List <Evaluations>? evaluations = JsonSerializer.Deserialize<List<Evaluations>>(json);
+				List<Evaluations>? evaluations = JsonSerializer.Deserialize<List<Evaluations>>(json);
 				if (evaluations != null)
 				{
 					return evaluations;
@@ -145,6 +145,37 @@ namespace TTMC.Kréta
 					autoRefresh.Start();
 				}
 			}
+		}
+		public List<Note> Feljegyzesek()
+		{
+			if (client.DefaultRequestHeaders.Contains("Authorization"))
+			{
+				string json = client.GetStringAsync(KretaAPI.notes(institute)).Result;
+				List<Note>? notes = JsonSerializer.Deserialize<List<Note>>(json);
+				if (notes != null)
+				{
+					return notes;
+				}
+			}
+			return new();
+		}
+		public List<Message> Postaladaelemek(MessageType select)
+		{
+			if (client.DefaultRequestHeaders.Contains("Authorization"))
+			{
+				string json = client.GetStringAsync("https://eugyintezes.e-kreta.hu/api/v1/kommunikacio/postaladaelemek/" + select.type).Result;
+				List<Message>? result = JsonSerializer.Deserialize<List<Message>>(json);
+				if (result != null)
+				{
+					foreach (Message message in result)
+					{
+						message.account = this;
+					}
+					return result;
+				}
+				return new();
+			}
+			return new();
 		}
 		public List<Message> Postaladaelemek(byte select)
 		{

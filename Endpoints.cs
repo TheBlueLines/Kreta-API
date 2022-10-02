@@ -9,6 +9,10 @@
 		{
 			return Kreta.Base(instituteCode) + KretaEndpoints.homework + "?datumTol=" + datumTol.ToString("u").Split(' ')[0];
 		}
+		public static string notes(string instituteCode)
+		{
+			return Kreta.Base(instituteCode) + KretaEndpoints.notes;
+		}
 	}
 	internal class Kreta
 	{
