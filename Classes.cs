@@ -4,7 +4,7 @@ namespace TTMC.Kréta
 {
 	public class MessageType
 	{
-		internal string? type { get; set; }
+		internal string type = string.Empty;
 		public static MessageType beerkezett = new() { type = "beerkezett" };
 		public static MessageType elkuldott = new() { type = "elkuldott" };
 		public static MessageType torolt = new() { type = "torolt" };
@@ -116,7 +116,7 @@ namespace TTMC.Kréta
 		public int azonosito { get; set; }
 		public string? fajlNev { get; set; }
 	}
-	public class Exam
+	public class AnnouncedTest
 	{
 		public string? Uid { get; set; }
 		public string? Datum { get; set; }
@@ -129,7 +129,7 @@ namespace TTMC.Kréta
 		public Three? Modja { get; set; }
 		public One? OsztalyCsoport { get; set; }
 	}
-	public class Timetable
+	public class Lesson
 	{
 		public string? Uid { get; set; }
 		public string? Datum { get; set; }
@@ -221,7 +221,7 @@ namespace TTMC.Kréta
 		public int ErtekelesekMegjelenitesenekKesleltetesenekMerteke { get; set; }
 		public string? KovetkezoTelepitesDatuma { get; set; }
 	}
-	public class Absences
+	public class Omission
 	{
 		public string? Uid { get; set; }
 		public Four? Tantargy { get; set; }
@@ -242,7 +242,7 @@ namespace TTMC.Kréta
 		public string? VegDatum { get; set; }
 		public int? Oraszam { get; set; }
 	}
-	public class Evaluations
+	public class Evaluation
 	{
 		public string? Uid { get; set; }
 		public string? RogzitesDatuma { get; set; }
@@ -296,5 +296,10 @@ namespace TTMC.Kréta
 		public One? OsztalyCsoport { get; set; }
 		public string? Tartalom { get; set; }
 		public Three? Tipus { get; set; }
+	}
+	public class Error
+	{
+		public string? error { get; set; }
+		public string? error_description { get; set; }
 	}
 }

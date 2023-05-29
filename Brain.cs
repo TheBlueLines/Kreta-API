@@ -1,11 +1,10 @@
-﻿using System.Text;
-using System.Text.Json;
+﻿using System.Text.Json;
 
 namespace TTMC.Kréta
 {
 	public class Engine
 	{
-		HttpClient httpClient = new();
+		private HttpClient httpClient = new();
 		public Engine(string userAgent = "KretaAPI", string apiKey = "7856d350-1fda-45f5-822d-e1a2f3f1acf0")
 		{
 			httpClient.DefaultRequestHeaders.Add("apiKey", apiKey);
@@ -41,88 +40,85 @@ namespace TTMC.Kréta
 	}
 	public class Account
 	{
-		public LoginDetails? loginDetails = null;
+		public LoginDetails loginDetails;
 		public HttpClient client = new();
 		private string institute = string.Empty;
 		private Task? autoRefresh = null;
+		private KretaAPI kretaAPI;
 		public Account(string instituteCode, string username, string password, string userAgent = "KretaAPI")
 		{
+			kretaAPI = new(instituteCode);
 			HttpClient httpClient = new();
 			AuthorizationPolicy ap = new(instituteCode, username);
 			httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(userAgent);
 			httpClient.DefaultRequestHeaders.Add("X-Authorizationpolicy-Key", ap.key);
 			httpClient.DefaultRequestHeaders.Add("X-Authorizationpolicy-Version", ap.version);
 			httpClient.DefaultRequestHeaders.Add("X-Authorizationpolicy-Nonce", ap.nonce);
-			StringContent req = new StringContent("userName=" + username + "&password=" + password + "&institute_code=" + instituteCode + "&grant_type=password&client_id=" + KretaAPI.clientId, Encoding.UTF8, "application/x-www-form-urlencoded");
-			HttpResponseMessage resp = httpClient.PostAsync(KretaAPI.login, req).Result;
+			Dictionary<string, string> tmp = new() { { "userName", username }, { "password", password }, { "institute_code", instituteCode }, { "grant_type", "password" }, { "client_id", KretaAPI.clientId } };
+			FormUrlEncodedContent content = new(tmp);
+			HttpResponseMessage resp = httpClient.PostAsync(KretaAPI.login, content).Result;
 			string json = resp.Content.ReadAsStringAsync().Result;
-			loginDetails = JsonSerializer.Deserialize<LoginDetails>(json);
-			if (loginDetails != null)
+			loginDetails = Enhance<LoginDetails>(json);
+			institute = instituteCode;
+			client.DefaultRequestHeaders.UserAgent.ParseAdd(userAgent);
+			client.DefaultRequestHeaders.Add("Authorization", loginDetails.token_type + " " + loginDetails.access_token);
+			autoRefresh = new Task(() => AutoRefresh(loginDetails.expires_in));
+			autoRefresh.Start();
+		}
+		internal static T Enhance<T>(string text)
+		{
+			if (text.StartsWith('{') && text.EndsWith('}'))
 			{
-				institute = instituteCode;
-				client.DefaultRequestHeaders.UserAgent.ParseAdd(userAgent);
-				client.DefaultRequestHeaders.Add("Authorization", loginDetails.token_type + " " + loginDetails.access_token);
-				autoRefresh = new Task(() => AutoRefresh(loginDetails.expires_in));
-				autoRefresh.Start();
+				Error? error = JsonSerializer.Deserialize<Error>(text);
+				if (error != null && !string.IsNullOrEmpty(error.error_description))
+				{
+					throw new Exception(error.error_description);
+				}
 			}
+			T? nzx = JsonSerializer.Deserialize<T>(text);
+			if (nzx != null)
+			{
+				return nzx;
+			}
+			throw new Exception(text);
 		}
 		private void AutoRefresh(int num)
 		{
-			Thread.Sleep(num);
+			Thread.Sleep(num * 1000);
 			RefreshToken();
 		}
-		public List<Timetable> OrarendElemek(DateTime datumTol, DateTime datumIg)
+		public List<Lesson> Lessons(DateTime? fromDate, DateTime? toDate)
 		{
 			if (client.DefaultRequestHeaders.Contains("Authorization"))
 			{
-				string one = datumTol.ToString("u").Split(' ')[0];
-				string two = datumIg.ToString("u").Split(' ')[0];
-				string json = client.GetStringAsync("https://" + institute + ".e-kreta.hu/ellenorzo/V3/Sajat/OrarendElemek?datumTol=" + one + "&datumIg=" + two).Result;
-				List<Timetable>? tt = JsonSerializer.Deserialize<List<Timetable>>(json);
-				if (tt != null)
+				string json = client.GetStringAsync(kretaAPI.Lessons(fromDate, toDate)).Result;
+				List<Lesson>? lessons = JsonSerializer.Deserialize<List<Lesson>>(json);
+				if (lessons != null)
 				{
-					return tt;
+					return lessons;
 				}
 			}
 			return new();
 		}
-		public List<Absences> Mulasztasok(DateTime? datumTol = null, DateTime? datumIg = null)
+		public List<Omission> Omissions(DateTime? fromDate = null, DateTime? toDate = null)
 		{
 			if (client.DefaultRequestHeaders.Contains("Authorization"))
 			{
-				string url = "https://" + institute + ".e-kreta.hu/ellenorzo/V3/Sajat/Mulasztasok";
-				if (datumTol != null)
+				string json = client.GetStringAsync(kretaAPI.Omissions(fromDate, toDate)).Result;
+				List<Omission>? omissions = JsonSerializer.Deserialize<List<Omission>>(json);
+				if (omissions != null)
 				{
-					url += "?datumTol=" + datumTol.Value.ToString("u").Split(' ')[0];
-				}
-				if (datumIg != null)
-				{
-					url += "?datumTol=" + datumIg.Value.ToString("u").Split(' ')[0];
-				}
-				string json = client.GetStringAsync(url).Result;
-				List<Absences>? absences = JsonSerializer.Deserialize<List<Absences>>(json);
-				if (absences != null)
-				{
-					return absences;
+					return omissions;
 				}
 			}
 			return new();
 		}
-		public List<Evaluations> Ertekelesek(DateTime? datumTol = null, DateTime? datumIg = null)
+		public List<Evaluation> Evaluations(DateTime? fromDate = null, DateTime? toDate = null)
 		{
 			if (client.DefaultRequestHeaders.Contains("Authorization"))
 			{
-				string url = "https://" + institute + ".e-kreta.hu/ellenorzo/V3/Sajat/Ertekelesek";
-				if (datumTol != null)
-				{
-					url += "?datumTol=" + datumTol.Value.ToString("u").Split(' ')[0];
-				}
-				if (datumIg != null)
-				{
-					url += "?datumTol=" + datumIg.Value.ToString("u").Split(' ')[0];
-				}
-				string json = client.GetStringAsync(url).Result;
-				List<Evaluations>? evaluations = JsonSerializer.Deserialize<List<Evaluations>>(json);
+				string json = client.GetStringAsync(kretaAPI.Evaluations(fromDate, toDate)).Result;
+				List<Evaluation>? evaluations = JsonSerializer.Deserialize<List<Evaluation>>(json);
 				if (evaluations != null)
 				{
 					return evaluations;
@@ -132,11 +128,12 @@ namespace TTMC.Kréta
 		}
 		public void RefreshToken()
 		{
-			if (client.DefaultRequestHeaders.Contains("Authorization") && loginDetails != null)
+			if (client.DefaultRequestHeaders.Contains("Authorization") && !string.IsNullOrEmpty(loginDetails.refresh_token))
 			{
-				StringContent content = new("institute_code=" + institute + "&refresh_token=" + loginDetails.refresh_token + "&grant_type=refresh_token&client_id=kreta-ellenorzo-mobile-android", Encoding.UTF8, "application/x-www-form-urlencoded");
-				HttpResponseMessage resp = client.PostAsync("https://idp.e-kreta.hu/connect/token", content).Result;
-				loginDetails = JsonSerializer.Deserialize<LoginDetails>(resp.Content.ReadAsStringAsync().Result);
+				Dictionary<string, string> tmp = new() { { "institute_code", institute }, { "refresh_token", loginDetails.refresh_token }, { "grant_type", "refresh_token" }, { "client_id", KretaAPI.clientId } };
+				FormUrlEncodedContent content = new(tmp);
+				HttpResponseMessage resp = client.PostAsync(KretaAPI.login, content).Result;
+				loginDetails = Enhance<LoginDetails>(resp.Content.ReadAsStringAsync().Result);
 				if (loginDetails != null)
 				{
 					client.DefaultRequestHeaders.Remove("Authorization");
@@ -146,11 +143,11 @@ namespace TTMC.Kréta
 				}
 			}
 		}
-		public List<Note> Feljegyzesek()
+		public List<Note> Notes(DateTime? fromDate = null, DateTime? toDate = null)
 		{
 			if (client.DefaultRequestHeaders.Contains("Authorization"))
 			{
-				string json = client.GetStringAsync(KretaAPI.notes(institute)).Result;
+				string json = client.GetStringAsync(kretaAPI.Notes(fromDate, toDate)).Result;
 				List<Note>? notes = JsonSerializer.Deserialize<List<Note>>(json);
 				if (notes != null)
 				{
@@ -159,11 +156,11 @@ namespace TTMC.Kréta
 			}
 			return new();
 		}
-		public List<Message> Postaladaelemek(MessageType select)
+		public List<Message> Messages(MessageType select)
 		{
 			if (client.DefaultRequestHeaders.Contains("Authorization"))
 			{
-				string json = client.GetStringAsync("https://eugyintezes.e-kreta.hu/api/v1/kommunikacio/postaladaelemek/" + select.type).Result;
+				string json = client.GetStringAsync(Kreta.Admin + AdminEndpoints.getAllMessages(select.type)).Result;
 				List<Message>? result = JsonSerializer.Deserialize<List<Message>>(json);
 				if (result != null)
 				{
@@ -177,12 +174,11 @@ namespace TTMC.Kréta
 			}
 			return new();
 		}
-		public List<Message> Postaladaelemek(byte select)
+		public List<Message> Messages(ulong select)
 		{
 			if (client.DefaultRequestHeaders.Contains("Authorization") & select >= 0 & select <= 2)
 			{
-				string[] list = { "beerkezett", "elkuldott", "torolt" };
-				string json = client.GetStringAsync("https://eugyintezes.e-kreta.hu/api/v1/kommunikacio/postaladaelemek/" + list[select]).Result;
+				string json = client.GetStringAsync(Kreta.Admin + AdminEndpoints.getMessage(select)).Result;
 				List<Message>? result = JsonSerializer.Deserialize<List<Message>>(json);
 				if (result != null)
 				{
@@ -196,42 +192,24 @@ namespace TTMC.Kréta
 			}
 			return new();
 		}
-		public List<Exam> BejelentettSzamonkeresek(DateTime? datumTol = null)
+		public List<AnnouncedTest> AnnouncedTests(DateTime? fromDate = null, DateTime? toDate = null)
 		{
 			if (client.DefaultRequestHeaders.Contains("Authorization"))
 			{
-				string url = "https://" + institute + ".e-kreta.hu/ellenorzo/V3/Sajat/BejelentettSzamonkeresek";
-				if (datumTol != null)
+				string json = client.GetStringAsync(kretaAPI.AnnouncedTests(fromDate, toDate)).Result;
+				List<AnnouncedTest>? announcedTests = JsonSerializer.Deserialize<List<AnnouncedTest>>(json);
+				if (announcedTests != null)
 				{
-					url += "?datumTol=" + datumTol.Value.ToString("u").Split(' ')[0];
-				}
-				string json = client.GetStringAsync(url).Result;
-				List<Exam>? exams = JsonSerializer.Deserialize<List<Exam>>(json);
-				if (exams != null)
-				{
-					return exams;
+					return announcedTests;
 				}
 			}
 			return new();
 		}
-		public StudentInfo TanuloAdatlap()
+		public List<Homework> Homeworks(DateTime? fromDate = null, DateTime? toDate = null)
 		{
 			if (client.DefaultRequestHeaders.Contains("Authorization"))
 			{
-				string json = client.GetStringAsync("https://" + institute + ".e-kreta.hu/ellenorzo/V3/Sajat/TanuloAdatlap").Result;
-				StudentInfo? si = JsonSerializer.Deserialize<StudentInfo>(json);
-				if (si != null)
-				{
-					return si;
-				}
-			}
-			return new();
-		}
-		public List<Homework> HaziFeladatok(DateTime datumTol)
-		{
-			if (client.DefaultRequestHeaders.Contains("Authorization"))
-			{
-				string json = client.GetStringAsync(KretaAPI.homework(institute, datumTol)).Result;
+				string json = client.GetStringAsync(kretaAPI.Homeworks(fromDate, toDate)).Result;
 				List<Homework>? homework = JsonSerializer.Deserialize<List<Homework>>(json);
 				if (homework != null)
 				{
@@ -240,18 +218,37 @@ namespace TTMC.Kréta
 			}
 			return new();
 		}
-		public School Intezmenyek()
+		public StudentInfo student
 		{
-			if (client.DefaultRequestHeaders.Contains("Authorization"))
+			get
 			{
-				string json = client.GetStringAsync(KretaAPI.capabilities(institute)).Result;
-				School? school = JsonSerializer.Deserialize<School>(json);
-				if (school != null)
+				if (client.DefaultRequestHeaders.Contains("Authorization"))
 				{
-					return school;
+					string json = client.GetStringAsync(kretaAPI.student).Result;
+					StudentInfo? si = JsonSerializer.Deserialize<StudentInfo>(json);
+					if (si != null)
+					{
+						return si;
+					}
 				}
+				return new();
 			}
-			return new();
+		}
+		public School capabilities
+		{
+			get
+			{
+				if (client.DefaultRequestHeaders.Contains("Authorization"))
+				{
+					string json = client.GetStringAsync(kretaAPI.capabilities).Result;
+					School? school = JsonSerializer.Deserialize<School>(json);
+					if (school != null)
+					{
+						return school;
+					}
+				}
+				return new();
+			}
 		}
 	}
 }

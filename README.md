@@ -18,39 +18,39 @@ Account account = new(string instituteCode, string username, string password, st
 ```csharp
 account.RefreshToken();
 ```
-## Timetable
-```csharp
-List<Timetable> timetable = account.OrarendElemek(DateTime datumTol, DateTime datumIg);
-```
-## Absences
-```csharp
-List<Absences> absences = account.Mulasztasok(DateTime? datumTol = null, DateTime? datumIg = null);
-```
-## Evaluations
-```csharp
-List<Evaluations> evaluations = account.Ertekelesek(DateTime? datumTol = null, DateTime? datumIg = null);
-```
-## Messages
-```csharp
-List<Message> messages = account.Postaladaelemek(0 (received) or 1 (sent) or 2 (deleted));
-```
-## Exams
-```csharp
-List<Exam> exams = account.BejelentettSzamonkeresek(DateTime? datumTol = null);
-```
 ## Student Info
 ```csharp
-StudentInfo studentInfo = account.TanuloAdatlap();
-```
-## Homeworks
-```csharp
-List<Homework> homeworks = account.HaziFeladatok(DateTime? datumTol = null);
-```
-## Notes
-```csharp
-List<Note> notes = account.Feljegyzesek();
+StudentInfo studentInfo = account.student;
 ```
 ## Capabilities
 ```csharp
-School school = account.Intezmenyek();
+School school = account.capabilities;
+```
+## Lessons
+```csharp
+List<Lesson> lessons = account.Lessons(DateTime fromDate, DateTime toDate);
+```
+## Absences
+```csharp
+List<Omission> omissions = account.Omissions(DateTime fromDate, DateTime toDate);
+```
+## Evaluations
+```csharp
+List<Evaluation> evaluations = account.Evaluations(DateTime fromDate, DateTime toDate);
+```
+## Messages
+```csharp
+List<Message> messages = account.Messages(MessageType select);
+```
+## Exams
+```csharp
+List<AnnouncedTest> announcedTests = account.AnnouncedTests(DateTime fromDate, DateTime toDate);
+```
+## Homeworks
+```csharp
+List<Homework> homeworks = account.Homeworks(DateTime fromDate, DateTime toDate);
+```
+## Notes
+```csharp
+List<Note> notes = account.Notes(DateTime fromDate, DateTime toDate);
 ```

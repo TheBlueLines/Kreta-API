@@ -5,17 +5,66 @@
 		public static string login = Kreta.Idp + KretaEndpoints.token;
 		public static string nonce = Kreta.Idp + KretaEndpoints.nonce;
 		public static string clientId = "kreta-ellenorzo-mobile-android";
-		public static string homework(string instituteCode, DateTime datumTol)
+		private string instituteCode;
+		public KretaAPI(string instituteCode)
 		{
-			return Kreta.Base(instituteCode) + KretaEndpoints.homework + "?datumTol=" + datumTol.ToString("u").Split(' ')[0];
+			this.instituteCode = instituteCode;
 		}
-		public static string notes(string instituteCode)
+		private string AddDatesToUrl(string url, DateTime? datumTol = null, DateTime? datumIg = null)
 		{
-			return Kreta.Base(instituteCode) + KretaEndpoints.notes;
+			if (datumTol != null)
+			{
+				url += "datumTol=" + datumTol.Value.ToString("u").Split(' ')[0] + "&";
+			}
+			if (datumIg != null)
+			{
+				url += "datumIg=" + datumIg.Value.ToString("u").Split(' ')[0] + "&";
+			}
+			return url[..^1];
 		}
-		public static string capabilities(string instituteCode)
+		public string Homeworks(DateTime? fromDate = null, DateTime? toDate = null)
 		{
-			return Kreta.Base(instituteCode) + KretaEndpoints.capabilities;
+			string url = Kreta.Base(instituteCode) + KretaEndpoints.homework;
+			return AddDatesToUrl(url, fromDate, toDate);
+		}
+		public string Notes(DateTime? fromDate = null, DateTime? toDate = null)
+		{
+			string url = Kreta.Base(instituteCode) + KretaEndpoints.notes;
+			return AddDatesToUrl(url, fromDate, toDate);
+		}
+		public string Evaluations(DateTime? fromDate = null, DateTime? toDate = null)
+		{
+			string url = Kreta.Base(instituteCode) + KretaEndpoints.evaluations;
+			return AddDatesToUrl(url, fromDate, toDate);
+		}
+		public string Omissions(DateTime? fromDate = null, DateTime? toDate = null)
+		{
+			string url = Kreta.Base(instituteCode) + KretaEndpoints.omissions;
+			return AddDatesToUrl(url, fromDate, toDate);
+		}
+		public string Lessons(DateTime? fromDate = null, DateTime? toDate = null)
+		{
+			string url = Kreta.Base(instituteCode) + KretaEndpoints.lessons;
+			return AddDatesToUrl(url, fromDate, toDate);
+		}
+		public string AnnouncedTests(DateTime? fromDate = null, DateTime? toDate = null)
+		{
+			string url = Kreta.Base(instituteCode) + KretaEndpoints.announcedTests;
+			return AddDatesToUrl(url, fromDate, toDate);
+		}
+		public string capabilities
+		{
+			get
+			{
+				return Kreta.Base(instituteCode) + KretaEndpoints.capabilities;
+			}
+		}
+		public string student
+		{
+			get
+			{
+				return Kreta.Base(instituteCode) + KretaEndpoints.student;
+			}
 		}
 	}
 	internal class Kreta
@@ -36,12 +85,12 @@
 		public static string notes = "/ellenorzo/V3/Sajat/Feljegyzesek";
 		public static string events = "/ellenorzo/V3/Sajat/FaliujsagElemek";
 		public static string student = "/ellenorzo/V3/Sajat/TanuloAdatlap";
-		public static string grades = "/ellenorzo/V3/Sajat/Ertekelesek";
-		public static string absences = "/ellenorzo/V3/Sajat/Mulasztasok";
+		public static string evaluations = "/ellenorzo/V3/Sajat/Ertekelesek";
+		public static string omissions = "/ellenorzo/V3/Sajat/Mulasztasok";
 		public static string groups = "/ellenorzo/V3/Sajat/OsztalyCsoportok";
 		public static string groupAverages = "/ellenorzo/V3/Sajat/Ertekelesek/Atlagok/OsztalyAtlagok";
-		public static string timetable = "/ellenorzo/V3/Sajat/OrarendElemek";
-		public static string exams = "/ellenorzo/V3/Sajat/BejelentettSzamonkeresek";
+		public static string lessons = "/ellenorzo/V3/Sajat/OrarendElemek";
+		public static string announcedTests = "/ellenorzo/V3/Sajat/BejelentettSzamonkeresek";
 		public static string homework = "/ellenorzo/V3/Sajat/HaziFeladatok";
 		public static string capabilities = "/ellenorzo/V3/Sajat/Intezmenyek";
 	}
