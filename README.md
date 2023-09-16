@@ -1,56 +1,116 @@
 # Kréta API
 
-Kréta API Library for C# applications (DOTNET 6.0)
+Kréta API Library for C# applications (DOTNET 7.0)
 
-## Kréta Engine
+## Global API
 ```csharp
-Engine engine = new(string apiKey = "7856d350-1fda-45f5-822d-e1a2f3f1acf0", string userAgent = "KretaAPI");
+GlobalApi globalApi = new GlobalApi();
 ```
-## All institutes
+### All institutes
 ```csharp
-List<Institute> institutes = engine.Institutes();
+globalApi.GetInstitutes();
 ```
-## Login
+## IDP
 ```csharp
-Account account = new(string instituteCode, string username, string password, string userAgent = "KretaAPI");
+IDP idp = new IDP();
 ```
-## refresh Token
+### Login
 ```csharp
-account.RefreshToken();
+Authentication authentication = idp.Login(string instituteCode, string username, string password);
 ```
-## Student Info
+### refresh Token
 ```csharp
-StudentInfo studentInfo = account.student;
+Authentication authentication = idp.RefreshToken(string instituteCode, string refreshToken);
 ```
-## Capabilities
+## MobileAPI
 ```csharp
-School school = account.capabilities;
+MobileApi mobileApi = new(string instituteCode, string accessToken);
 ```
-## Lessons
+### Get announced tests
 ```csharp
-List<Lesson> lessons = account.Lessons(DateTime fromDate, DateTime toDate);
+List<AnnouncedTest> announcedTests = mobileApi.GetAnnouncedTests(DateTime? fromDate = null, DateTime? toDate = null);
 ```
-## Absences
+#### Get class average
 ```csharp
-List<Omission> omissions = account.Omissions(DateTime fromDate, DateTime toDate);
+List<ClassAverage> classAverages = mobileApi.GetClassAverage(string taskUid, string? subjectUid = null);
 ```
-## Evaluations
+### Get class master
 ```csharp
-List<Evaluation> evaluations = account.Evaluations(DateTime fromDate, DateTime toDate);
+List<ClassMaster> classMasters = mobileApi.GetClassMaster(object? uids = null);
 ```
-## Messages
+### Get consulting hour
 ```csharp
-List<Message> messages = account.Messages(MessageType select);
+ConsultingHour consultingHour = mobileApi.GetConsultingHour(object uid);
 ```
-## Exams
+### Get consulting hours
 ```csharp
-List<AnnouncedTest> announcedTests = account.AnnouncedTests(DateTime fromDate, DateTime toDate);
+List<ConsultingHourList> consultingHourLists = mobileApi.GetConsultingHours(DateTime? fromDate = null, DateTime? toDate = null);
 ```
-## Homeworks
+### Get device given state
 ```csharp
-List<Homework> homeworks = account.Homeworks(DateTime fromDate, DateTime toDate);
+bool deviceGivenState = mobileApi.GetDeviceGivenState();
 ```
-## Notes
+### Get evaluations
 ```csharp
-List<Note> notes = account.Notes(DateTime fromDate, DateTime toDate);
+List<Evaluation> evaluations = mobileApi.GetEvaluations(DateTime? fromDate = null, DateTime? toDate = null);
+```
+### Get groups
+```csharp
+List<Group> groups = mobileApi.GetGroups();
+```
+### Get Guardian
+```csharp
+Guardian4T guardian4T = mobileApi.GetGuardian4T();
+```
+### Get Homeworks
+```csharp
+List<Homework> homeworks = mobileApi.GetHomeworks(DateTime? fromDate = null, DateTime? toDate = null);
+```
+### Get Homework
+```csharp
+Homework homework = mobileApi.GetHomework(object id);
+```
+### Get LEP events
+```csharp
+List<LepEvent> lepEvents = mobileApi.GetLEPEvents();
+```
+### Get Lesson
+```csharp
+Lesson lessons = mobileApi.GetLesson(object uid);
+```
+### Get Lessons
+```csharp
+List<Lesson> lessons = mobileApi.GetLessons(DateTime? fromDate = null, DateTime? toDate = null);
+```
+### Get Notes
+```csharp
+List<Note> notes = mobileApi.GetNotes(DateTime? fromDate = null, DateTime? toDate = null);
+```
+### Get notice board items
+```csharp
+List<NoticeBoardItem> noticeBoardItems = mobileApi.GetNoticeBoardItems();
+```
+### Get omissions
+```csharp
+List<Omission> omissions = mobileApi.GetOmissions(DateTime? fromDate = null, DateTime? toDate = null);
+```
+### Get registration state
+```csharp
+bool registrationState = mobileApi.GetRegistrationState();
+```
+### Get school year calendar
+```csharp
+SchoolYearCalendarEntry schoolYearCalendarEntry = mobileApi.GetSchoolYearCalendar();
+```
+### Get student
+```csharp
+Student student = mobileApi.GetStudent();
+```
+### Get subject average
+```csharp
+List<SubjectAverage> subjectAverages = mobileApi.GetSubjectAverage(object uid);
+```
+### Get time table weeks
+```csharp
+List<TimeTableWeek> timeTableWeeks = mobileApi.GetTimeTableWeeks(DateTime fromDate, DateTime toDate);
 ```

@@ -5,15 +5,18 @@ namespace TTMC.Kréta
 {
 	public class AuthorizationPolicy
 	{
-		private HMACSHA512 hmac = new();
-		public string nonce = string.Empty;
-		public string key = string.Empty;
-		public string version = "v2";
-		private readonly string code = "baSsxOwlU1jM";
-		public AuthorizationPolicy(string instituteCode, string username)
+		private HMACSHA512 hmac;
+		public readonly string nonce;
+		public readonly string key;
+		public readonly string version;
+		public AuthorizationPolicy(string nonce, string instituteCode, string username, string secret = "baSsxOwlU1jM")
 		{
-			hmac.Key = Encoding.ASCII.GetBytes(code);
-			nonce = new HttpClient().GetStringAsync(KretaAPI.nonce).Result;
+			hmac = new()
+			{
+				Key = Encoding.ASCII.GetBytes(secret)
+			};
+			version = "v2";
+			this.nonce = nonce;
 			byte[] data = Encoding.UTF8.GetBytes(instituteCode.ToUpper() + nonce + username.ToUpper());
 			byte[] bytes = hmac.ComputeHash(data);
 			key = Convert.ToBase64String(bytes);

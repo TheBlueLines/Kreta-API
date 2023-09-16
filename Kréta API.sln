@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.32912.340
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kréta API", "Kréta API.csproj", "{90635791-0485-4B5E-AE39-24B97234EF94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kréta API", "Kréta API.csproj", "{90635791-0485-4B5E-AE39-24B97234EF94}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
