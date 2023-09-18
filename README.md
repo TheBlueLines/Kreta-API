@@ -58,15 +58,15 @@ List<Evaluation> evaluations = mobileApi.GetEvaluations(DateTime? fromDate = nul
 ```csharp
 List<Group> groups = mobileApi.GetGroups();
 ```
-### Get Guardian
+### Get guardian
 ```csharp
 Guardian4T guardian4T = mobileApi.GetGuardian4T();
 ```
-### Get Homeworks
+### Get homeworks
 ```csharp
 List<Homework> homeworks = mobileApi.GetHomeworks(DateTime? fromDate = null, DateTime? toDate = null);
 ```
-### Get Homework
+### Get homework
 ```csharp
 Homework homework = mobileApi.GetHomework(object id);
 ```
@@ -74,15 +74,15 @@ Homework homework = mobileApi.GetHomework(object id);
 ```csharp
 List<LepEvent> lepEvents = mobileApi.GetLEPEvents();
 ```
-### Get Lesson
+### Get lesson
 ```csharp
 Lesson lessons = mobileApi.GetLesson(object uid);
 ```
-### Get Lessons
+### Get lessons
 ```csharp
 List<Lesson> lessons = mobileApi.GetLessons(DateTime? fromDate = null, DateTime? toDate = null);
 ```
-### Get Notes
+### Get notes
 ```csharp
 List<Note> notes = mobileApi.GetNotes(DateTime? fromDate = null, DateTime? toDate = null);
 ```

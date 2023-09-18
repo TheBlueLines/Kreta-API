@@ -1,5 +1,7 @@
 ﻿using System.Net;
+using System.Net.Http.Json;
 using System.Text.Json;
+using static TTMC.Kréta.ClassMaster;
 
 namespace TTMC.Kréta
 {
@@ -18,25 +20,40 @@ namespace TTMC.Kréta
 			}
 			client.DefaultRequestHeaders.Authorization = new("Bearer", accessToken);
 		}
+		public HttpContent deleteBankAccountNumber()
+		{
+			HttpResponseMessage resp = client.DeleteAsync($"/ellenorzo/v3/sajat/Bankszamla").Result;
+			return resp.Content;
+		}
+		public HttpContent deleteReservation(string uid)
+		{
+			HttpResponseMessage resp = client.DeleteAsync($"/ellenorzo/v3/sajat/Fogadoorak/Idopontok/Jelentkezesek/{uid}").Result;
+			return resp.Content;
+		}
+		public HttpContent downloadAttachment(string uid)
+		{
+			HttpResponseMessage resp = client.GetAsync($"/ellenorzo/v3/sajat/Csatolmany/{uid}").Result;
+			return resp.Content;
+		}
 		public List<AnnouncedTest> GetAnnouncedTests(DateTime? fromDate = null, DateTime? toDate = null)
 		{
 			HttpResponseMessage resp = client.GetAsync($"/ellenorzo/v3/Sajat/BejelentettSzamonkeresek" + BuildQuery(fromDate, toDate)).Result;
 			string json = resp.Content.ReadAsStringAsync().Result;
 			return Deserialize<List<AnnouncedTest>>(json);
 		}
-		public List<ClassAverage> GetClassAverage(object taskUid, object? subjectUid = null)
+		public List<ClassAverage> GetClassAverage(string taskUid, string? subjectUid = null)
 		{
 			HttpResponseMessage resp = client.GetAsync($"/ellenorzo/v3/sajat/Ertekelesek/Atlagok/OsztalyAtlagok?oktatasiNevelesiFeladatUid={taskUid}" + (subjectUid == null ? string.Empty : "&tantargyUid=" + subjectUid)).Result;
 			string json = resp.Content.ReadAsStringAsync().Result;
 			return Deserialize<List<ClassAverage>>(json);
 		}
-		public List<ClassMaster> GetClassMaster(object? uids = null)
+		public List<ClassMaster> GetClassMaster(string? uids = null)
 		{
 			HttpResponseMessage resp = client.GetAsync($"/ellenorzo/v3/felhasznalok/Alkalmazottak/Tanarok/Osztalyfonokok" + (uids == null ? string.Empty : "?Uids=" + uids)).Result;
 			string json = resp.Content.ReadAsStringAsync().Result;
 			return Deserialize<List<ClassMaster>>(json);
 		}
-		public ConsultingHour GetConsultingHour(object uid)
+		public ConsultingHour GetConsultingHour(string uid)
 		{
 			HttpResponseMessage resp = client.GetAsync($"/ellenorzo/v3/sajat/Fogadoorak/{uid}").Result;
 			string json = resp.Content.ReadAsStringAsync().Result;
@@ -82,7 +99,7 @@ namespace TTMC.Kréta
 			string json = resp.Content.ReadAsStringAsync().Result;
 			return Deserialize<List<Homework>>(json);
 		}
-		public Homework GetHomework(object id)
+		public Homework GetHomework(string id)
 		{
 			HttpResponseMessage resp = client.GetAsync($"/ellenorzo/v3/Sajat/HaziFeladatok/{id}").Result;
 			string json = resp.Content.ReadAsStringAsync().Result;
@@ -94,7 +111,7 @@ namespace TTMC.Kréta
 			string json = resp.Content.ReadAsStringAsync().Result;
 			return Deserialize<List<LepEvent>>(json);
 		}
-		public Lesson GetLesson(object uid)
+		public Lesson GetLesson(string uid)
 		{
 			HttpResponseMessage resp = client.GetAsync($"/ellenorzo/v3/Sajat/OrarendElem?orarendElemUid={uid}").Result;
 			string json = resp.Content.ReadAsStringAsync().Result;
@@ -124,15 +141,10 @@ namespace TTMC.Kréta
 			string json = resp.Content.ReadAsStringAsync().Result;
 			return Deserialize<List<Omission>>(json);
 		}
-		public bool GetRegistrationState()
+		public HttpContent GetRegistrationState()
 		{
 			HttpResponseMessage resp = client.GetAsync($"/ellenorzo/v3/TargyiEszkoz/IsRegisztralt").Result;
-			string text = resp.Content.ReadAsStringAsync().Result;
-			if (resp.StatusCode == HttpStatusCode.OK && bool.TryParse(text, out bool check))
-			{
-				return check;
-			}
-			throw new(text);
+			return resp.Content;
 		}
 		public SchoolYearCalendarEntry GetSchoolYearCalendar()
 		{
@@ -146,7 +158,7 @@ namespace TTMC.Kréta
 			string json = resp.Content.ReadAsStringAsync().Result;
 			return Deserialize<Student>(json);
 		}
-		public List<SubjectAverage> GetSubjectAverage(object uid)
+		public List<SubjectAverage> GetSubjectAverage(string uid)
 		{
 			HttpResponseMessage resp = client.GetAsync($"/ellenorzo/v3/sajat/Ertekelesek/Atlagok/TantargyiAtlagok?oktatasiNevelesiFeladatUid={uid}").Result;
 			string json = resp.Content.ReadAsStringAsync().Result;
@@ -157,6 +169,47 @@ namespace TTMC.Kréta
 			HttpResponseMessage resp = client.GetAsync($"/ellenorzo/v3/sajat/Intezmenyek/Hetirendek/Orarendi?orarendElemKezdoNapDatuma={fromDate.ToString("s")}&orarendElemVegNapDatuma={toDate.ToString("s")}").Result;
 			string json = resp.Content.ReadAsStringAsync().Result;
 			return Deserialize<List<TimeTableWeek>>(json);
+		}
+		public HttpContent postBankAccountNumber(BankAccountNumberPost bankAccountNumber)
+		{
+			JsonContent jsonContent = JsonContent.Create(bankAccountNumber, options: GlobalApi.jsonSerializerOptions);
+			HttpResponseMessage resp = client.PostAsync($"/ellenorzo/v3/sajat/Bankszamla", jsonContent).Result;
+			return resp.Content;
+		}
+		public HttpContent postContact(string email, string telefonszam)
+		{
+			List<KeyValuePair<string, string>> keyValuePairs = new() { new("email", email), new("telefonszam", telefonszam) };
+			FormUrlEncodedContent formUrlEncodedContent = new(keyValuePairs);
+			HttpResponseMessage resp = client.PostAsync($"/ellenorzo/v3/sajat/Elerhetoseg", formUrlEncodedContent).Result;
+			return resp.Content;
+		}
+		public HttpContent postCovidForm()
+		{
+			HttpResponseMessage resp = client.PostAsync($"/ellenorzo/v3/Bejelentes/Covid", null).Result;
+			return resp.Content;
+		}
+		public HttpContent postReservation(string uid)
+		{
+			HttpResponseMessage resp = client.PostAsync($"/ellenorzo/v3/sajat/Fogadoorak/Idopontok/Jelentkezesek/{uid}", null).Result;
+			return resp.Content;
+		}
+		public HttpContent postTeszekRegistration(Guardian4TPost guardian4TPost)
+		{
+			JsonContent jsonContent = JsonContent.Create(guardian4TPost, options: GlobalApi.jsonSerializerOptions);
+			HttpResponseMessage resp = client.PostAsync($"/ellenorzo/v3/TargyiEszkoz/Regisztracio", jsonContent).Result;
+			return resp.Content;
+		}
+		public HttpContent updateGuardian4T(Guardian4TPost guardian4TPost)
+		{
+			JsonContent jsonContent = JsonContent.Create(guardian4TPost, options: GlobalApi.jsonSerializerOptions);
+			HttpResponseMessage resp = client.PutAsync($"/ellenorzo/v3/sajat/GondviseloAdatlap", jsonContent).Result;
+			return resp.Content;
+		}
+		public string updateLepEventPermission(LepEventGuardianPermissionPost lepEventGuardianPermissionPost)
+		{
+			JsonContent jsonContent = JsonContent.Create(lepEventGuardianPermissionPost, options: GlobalApi.jsonSerializerOptions);
+			HttpResponseMessage resp = client.PostAsync($"/ellenorzo/v3/Lep/Eloadasok/GondviseloEngedelyezes", jsonContent).Result;
+			return resp.Content.ReadAsStringAsync().Result;
 		}
 		private T Deserialize<T>(string json)
 		{

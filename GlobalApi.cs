@@ -1,4 +1,7 @@
-﻿using System.Text.Json;
+﻿using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Text.Unicode;
 
 namespace TTMC.Kréta
 {
@@ -34,5 +37,11 @@ namespace TTMC.Kréta
 				throw new(json);
 			}
 		}
+		internal static JsonSerializerOptions jsonSerializerOptions = new()
+		{
+			WriteIndented = false,
+			Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
+			DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+		};
 	}
 }
