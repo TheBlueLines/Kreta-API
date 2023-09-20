@@ -59,7 +59,7 @@ namespace TTMC.Kréta
 		}
 		public List<ClassworkTeachingMaterial>? getClassworkTeachingMaterial(ClassworkTeachingMaterialPost classworkTeachingMaterialPost)
 		{
-			JsonContent jsonContent = JsonContent.Create(classworkTeachingMaterialPost, options: GlobalApi.jsonSerializerOptions);
+			JsonContent jsonContent = JsonContent.Create(classworkTeachingMaterialPost, options: Engine.jsonSerializerOptions);
 			HttpResponseMessage resp = client.PostAsync($"/dktapi/intezmenyek/tanulok/orak/tananyagok", jsonContent).Result;
 			string json = resp.Content.ReadAsStringAsync().Result;
 			return JsonSerializer.Deserialize<List<ClassworkTeachingMaterial>>(json);
@@ -107,25 +107,25 @@ namespace TTMC.Kréta
 		}
 		public string putSaveSolution(string beadasId, ClassworkSolutionPut classworkSolutionPut)
 		{
-			JsonContent jsonContent = JsonContent.Create(classworkSolutionPut, options: GlobalApi.jsonSerializerOptions);
+			JsonContent jsonContent = JsonContent.Create(classworkSolutionPut, options: Engine.jsonSerializerOptions);
 			HttpResponseMessage resp = client.PutAsync($"/dktapi/intezmenyek/tanulok/orak/oraifeladatok/beadasok/{beadasId}", jsonContent).Result;
 			return resp.Content.ReadAsStringAsync().Result;
 		}
 		public HttpContent saveHomeworkAttachment(string haziFeladatBeadasId, HomeworkSolutionAttachmentPost homeworkSolutionAttachmentPost)
 		{
-			JsonContent jsonContent = JsonContent.Create(homeworkSolutionAttachmentPost, options: GlobalApi.jsonSerializerOptions);
+			JsonContent jsonContent = JsonContent.Create(homeworkSolutionAttachmentPost, options: Engine.jsonSerializerOptions);
 			HttpResponseMessage resp = client.PostAsync($"/dktapi/intezmenyek/tanulok/orak/hazifeladatok/beadasok/{haziFeladatBeadasId}/fajlok/veglegesites", jsonContent).Result;
 			return resp.Content;
 		}
 		public string saveHomeworkSolution(string haziFeladatId, HomeworkSolutionPut homeworkSolutionPut)
 		{
-			JsonContent jsonContent = JsonContent.Create(homeworkSolutionPut, options: GlobalApi.jsonSerializerOptions);
+			JsonContent jsonContent = JsonContent.Create(homeworkSolutionPut, options: Engine.jsonSerializerOptions);
 			HttpResponseMessage resp = client.PutAsync($"/dktapi/intezmenyek/tanulok/orak/hazifeladatok/beadasok/{haziFeladatId}", jsonContent).Result;
 			return resp.Content.ReadAsStringAsync().Result;
 		}
 		public HttpContent saveSolutionAttachment(string oraiFeladatBeadasId, ClassworkSolutionAttachmentPost classworkSolutionAttachmentPost)
 		{
-			JsonContent jsonContent = JsonContent.Create(classworkSolutionAttachmentPost, options: GlobalApi.jsonSerializerOptions);
+			JsonContent jsonContent = JsonContent.Create(classworkSolutionAttachmentPost, options: Engine.jsonSerializerOptions);
 			HttpResponseMessage resp = client.PostAsync($"/dktapi/intezmenyek/tanulok/orak/oraifeladatok/beadasok/{oraiFeladatBeadasId}/fajlok/veglegesites", jsonContent).Result;
 			return resp.Content;
 		}

@@ -43,11 +43,11 @@ namespace TTMC.Kréta
 			[JsonPropertyName("BankszamlaSzam")]
 			public string? accountNumber { get; set; }
 			[JsonPropertyName("IsReadOnly")]
-			public string? isReadOnly { get; set; }
+			public bool? isReadOnly { get; set; }
 			[JsonPropertyName("BankszamlaTulajdonosNeve")]
 			public string? ownerName { get; set; }
 			[JsonPropertyName("BankszamlaTulajdonosTipusId")]
-			public string? ownerType { get; set; }
+			public int? ownerType { get; set; }
 		}
 	}
 }

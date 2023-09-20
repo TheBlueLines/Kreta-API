@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
-using static TTMC.Kréta.ClassMaster;
 
 namespace TTMC.Kréta
 {
@@ -156,7 +155,7 @@ namespace TTMC.Kréta
 		{
 			HttpResponseMessage resp = client.GetAsync($"/ellenorzo/v3/sajat/TanuloAdatlap").Result;
 			string json = resp.Content.ReadAsStringAsync().Result;
-			return Deserialize<Student>(json);
+            return Deserialize<Student>(json);
 		}
 		public List<SubjectAverage> GetSubjectAverage(string uid)
 		{
@@ -172,7 +171,7 @@ namespace TTMC.Kréta
 		}
 		public HttpContent postBankAccountNumber(BankAccountNumberPost bankAccountNumber)
 		{
-			JsonContent jsonContent = JsonContent.Create(bankAccountNumber, options: GlobalApi.jsonSerializerOptions);
+			JsonContent jsonContent = JsonContent.Create(bankAccountNumber, options: Engine.jsonSerializerOptions);
 			HttpResponseMessage resp = client.PostAsync($"/ellenorzo/v3/sajat/Bankszamla", jsonContent).Result;
 			return resp.Content;
 		}
@@ -195,19 +194,19 @@ namespace TTMC.Kréta
 		}
 		public HttpContent postTeszekRegistration(Guardian4TPost guardian4TPost)
 		{
-			JsonContent jsonContent = JsonContent.Create(guardian4TPost, options: GlobalApi.jsonSerializerOptions);
+			JsonContent jsonContent = JsonContent.Create(guardian4TPost, options: Engine.jsonSerializerOptions);
 			HttpResponseMessage resp = client.PostAsync($"/ellenorzo/v3/TargyiEszkoz/Regisztracio", jsonContent).Result;
 			return resp.Content;
 		}
 		public HttpContent updateGuardian4T(Guardian4TPost guardian4TPost)
 		{
-			JsonContent jsonContent = JsonContent.Create(guardian4TPost, options: GlobalApi.jsonSerializerOptions);
+			JsonContent jsonContent = JsonContent.Create(guardian4TPost, options: Engine.jsonSerializerOptions);
 			HttpResponseMessage resp = client.PutAsync($"/ellenorzo/v3/sajat/GondviseloAdatlap", jsonContent).Result;
 			return resp.Content;
 		}
 		public string updateLepEventPermission(LepEventGuardianPermissionPost lepEventGuardianPermissionPost)
 		{
-			JsonContent jsonContent = JsonContent.Create(lepEventGuardianPermissionPost, options: GlobalApi.jsonSerializerOptions);
+			JsonContent jsonContent = JsonContent.Create(lepEventGuardianPermissionPost, options: Engine.jsonSerializerOptions);
 			HttpResponseMessage resp = client.PostAsync($"/ellenorzo/v3/Lep/Eloadasok/GondviseloEngedelyezes", jsonContent).Result;
 			return resp.Content.ReadAsStringAsync().Result;
 		}
@@ -216,7 +215,7 @@ namespace TTMC.Kréta
 			if (json.StartsWith('{') && json.EndsWith('}'))
 			{
 				Error? error = JsonSerializer.Deserialize<Error>(json);
-				if (error != null)
+				if (error != null && !string.IsNullOrEmpty(error.error))
 				{
 					throw new(error.error);
 				}
