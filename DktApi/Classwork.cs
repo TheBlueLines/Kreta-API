@@ -1,25 +1,30 @@
-﻿using System.Text.Json.Serialization;
+/*
+	This file is auto generated using Kréta Builder by TheBlueLines
+	Generated on: 2023. 12. 13. 21:07:32
+*/
+
+using System.Text.Json.Serialization;
 
 namespace TTMC.Kréta
 {
 	public class Classwork
 	{
 		[JsonPropertyName("csatolasEngedelyezesTipusId")]
-		public long? allowToAttachFileTypeId {  get; set; }
+		public long? allowToAttachFileTypeId { get; set; }
 		[JsonPropertyName("csoportId")]
-		public long? classGroupId {  get; set; }
+		public long? classGroupId { get; set; }
 		[JsonPropertyName("osztalyId")]
-		public long? classId {  get; set; }
+		public long? classId { get; set; }
 		[JsonPropertyName("osztalyNev")]
-		public string? className {  get; set; }
+		public string? className { get; set; }
 		[JsonPropertyName("letrehozasIdeje")]
-		public string? creationTimeAsString {  get; set; }
+		public string? creationTimeAsString { get; set; }
 		[JsonPropertyName("alkalmazottId")]
-		public long? employeeId {  get; set; }
+		public long? employeeId { get; set; }
 		[JsonPropertyName("groupId")]
 		public string? groupId { get; set; }
 		[JsonPropertyName("id")]
-		public long id { get; set; }
+		public long? id { get; set; }
 		[JsonPropertyName("idotartamPerc")]
 		public int? lengthInMinutes { get; set; }
 		[JsonPropertyName("oraDatum")]
@@ -45,6 +50,6 @@ namespace TTMC.Kréta
 		[JsonPropertyName("cim")]
 		public string? title { get; set; }
 		[JsonPropertyName("egyediId")]
-		public string? uid { get; set; }
+		public string? uniqueId { get; set; }
 	}
 }

@@ -1,4 +1,9 @@
-﻿using System.Text.Json.Serialization;
+/*
+	This file is auto generated using Kréta Builder by TheBlueLines
+	Generated on: 2023. 12. 13. 21:07:32
+*/
+
+using System.Text.Json.Serialization;
 
 namespace TTMC.Kréta
 {
@@ -15,13 +20,13 @@ namespace TTMC.Kréta
 		[JsonPropertyName("iktatottHatarozat")]
 		public FiledDecision? filedDecision { get; set; }
 		[JsonPropertyName("azonosito")]
-		public int id { get; set; }
+		public string? id { get; set; }
 		[JsonPropertyName("dontes")]
 		public Judgement? judgement { get; set; }
 		[JsonPropertyName("indoklas")]
 		public string? justification { get; set; }
 		[JsonPropertyName("isDigitalisanKikuldendo")]
-		public bool? needToBeSendDigitally { get; set; }
+		public Boolean? needToBeSendDigitally { get; set; }
 		[JsonPropertyName("postazasiStatusz")]
 		public PostState? postState { get; set; }
 		[JsonPropertyName("igazoltTavolletVegeDatum")]

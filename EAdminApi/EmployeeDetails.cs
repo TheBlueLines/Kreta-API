@@ -1,4 +1,9 @@
-﻿using System.Text.Json.Serialization;
+/*
+	This file is auto generated using Kréta Builder by TheBlueLines
+	Generated on: 2023. 12. 13. 21:07:32
+*/
+
+using System.Text.Json.Serialization;
 
 namespace TTMC.Kréta
 {
@@ -13,21 +18,21 @@ namespace TTMC.Kréta
 		[JsonPropertyName("osztaly")]
 		public string? educationClass { get; set; }
 		[JsonPropertyName("isAdmin")]
-		public bool? isAdmin { get; set; }
+		public Boolean? isAdmin { get; set; }
 		[JsonPropertyName("isOsztalyfonok")]
-		public bool? isClassMaster { get; set; }
+		public Boolean? isClassMaster { get; set; }
 		[JsonPropertyName("isTorolt")]
-		public bool? isDeleted { get; set; }
+		public Boolean? isDeleted { get; set; }
 		[JsonPropertyName("isOsztalyfonokHelyettes")]
-		public bool? isDeputyClassMaster { get; set; }
+		public Boolean? isDeputyClassMaster { get; set; }
 		[JsonPropertyName("isIgazgatoHelyettes")]
-		public bool? isDeputyDirector { get; set; }
+		public Boolean? isDeputyDirector { get; set; }
 		[JsonPropertyName("isIgazgato")]
-		public bool? isDirector { get; set; }
+		public Boolean? isDirector { get; set; }
 		[JsonPropertyName("isAlairo")]
-		public bool? isSignatory { get; set; }
+		public Boolean? isSignatory { get; set; }
 		[JsonPropertyName("isTanar")]
-		public bool? isTeacher { get; set; }
+		public Boolean? isTeacher { get; set; }
 		[JsonPropertyName("osztalyKretaAzonosito")]
 		public long? kretaClassId { get; set; }
 		[JsonPropertyName("kretaAzonosito")]

@@ -1,4 +1,9 @@
-﻿using System.Text.Json.Serialization;
+/*
+	This file is auto generated using Kréta Builder by TheBlueLines
+	Generated on: 2023. 12. 13. 21:07:32
+*/
+
+using System.Text.Json.Serialization;
 
 namespace TTMC.Kréta
 {
@@ -15,13 +20,13 @@ namespace TTMC.Kréta
 		[JsonPropertyName("kretaIntezmenyAzonosito")]
 		public string? institutionId { get; set; }
 		[JsonPropertyName("isAltalanos")]
-		public bool? isBasicLevel { get; set; }
+		public Boolean? isBasicLevel { get; set; }
 		[JsonPropertyName("IsUzenetKezelesElerheto")]
-		public bool? isMessageHandlingAccessible { get; set; }
+		public Boolean? isMessageHandlingAccessible { get; set; }
 		[JsonPropertyName("isKozepfoku")]
-		public bool? isMidLevel { get; set; }
+		public Boolean? isMidLevel { get; set; }
 		[JsonPropertyName("isSzeusz")]
-		public bool? isSzeusz { get; set; }
+		public Boolean? isSzeusz { get; set; }
 		[JsonPropertyName("nev")]
 		public string? name { get; set; }
 		[JsonPropertyName("ertesitesiEmailCim")]

@@ -1,6 +1,6 @@
 # Kréta API
 
-Kréta API Library for C# applications (DOTNET 7.0)
+Kréta API Library for C# applications (DOTNET 8.0)
 
 ## Global API
 ```csharp

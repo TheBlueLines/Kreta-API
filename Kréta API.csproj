@@ -1,11 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>TTMC.Kréta</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AssemblyName>Kreta</AssemblyName>
+    <NoWin32Manifest>true</NoWin32Manifest>
+    <Authors>TheBlueLines</Authors>
+    <Company>TTMC</Company>
+    <Product>Kréta API</Product>
+    <Version>0.0.5</Version>
   </PropertyGroup>
 
 </Project>

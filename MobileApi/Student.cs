@@ -1,4 +1,9 @@
-﻿using System.Text.Json.Serialization;
+/*
+	This file is auto generated using Kréta Builder by TheBlueLines
+	Generated on: 2023. 12. 13. 21:07:33
+*/
+
+using System.Text.Json.Serialization;
 
 namespace TTMC.Kréta
 {
@@ -9,7 +14,7 @@ namespace TTMC.Kréta
 		[JsonPropertyName("Bankszamla")]
 		public BankAccount? bankAccount { get; set; }
 		[JsonPropertyName("SzuletesiNap")]
-		public int dayOfBirth { get; set; }
+		public int? dayOfBirth { get; set; }
 		[JsonPropertyName("EmailCim")]
 		public string? emailAddress { get; set; }
 		[JsonPropertyName("Gondviselok")]
@@ -21,7 +26,7 @@ namespace TTMC.Kréta
 		[JsonPropertyName("Intezmeny")]
 		public Institution? institution { get; set; }
 		[JsonPropertyName("SzuletesiHonap")]
-		public int monthOfBirth { get; set; }
+		public int? monthOfBirth { get; set; }
 		[JsonPropertyName("AnyjaNeve")]
 		public string? mothersName { get; set; }
 		[JsonPropertyName("Nev")]
@@ -33,17 +38,17 @@ namespace TTMC.Kréta
 		[JsonPropertyName("SzuletesiHely")]
 		public string? placeOfBirth { get; set; }
 		[JsonPropertyName("TanevUid")]
-		public long schoolYearUID { get; set; }
+		public long? schoolYearUID { get; set; }
 		[JsonPropertyName("Uid")]
 		public string? uid { get; set; }
 		[JsonPropertyName("SzuletesiEv")]
-		public int yearOfBirth { get; set; }
+		public int? yearOfBirth { get; set; }
 		public class BankAccount
 		{
 			[JsonPropertyName("BankszamlaSzam")]
 			public string? accountNumber { get; set; }
 			[JsonPropertyName("IsReadOnly")]
-			public bool? isReadOnly { get; set; }
+			public Boolean? isReadOnly { get; set; }
 			[JsonPropertyName("BankszamlaTulajdonosNeve")]
 			public string? ownerName { get; set; }
 			[JsonPropertyName("BankszamlaTulajdonosTipusId")]

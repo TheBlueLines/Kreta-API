@@ -1,4 +1,9 @@
-﻿using System.Text.Json.Serialization;
+/*
+	This file is auto generated using Kréta Builder by TheBlueLines
+	Generated on: 2023. 12. 13. 21:07:32
+*/
+
+using System.Text.Json.Serialization;
 
 namespace TTMC.Kréta
 {
@@ -7,15 +12,15 @@ namespace TTMC.Kréta
 		[JsonPropertyName("megjegyzes")]
 		public string? comment { get; set; }
 		[JsonPropertyName("elfogadottNemElfogadott")]
-		public bool? evaluatedByAccepting { get; set; }
+		public Boolean? evaluatedByAccepting { get; set; }
 		[JsonPropertyName("osztalyzattalErtekelt")]
-		public bool? evaluatedByMark { get; set; }
+		public Boolean? evaluatedByMark { get; set; }
 		[JsonPropertyName("szazalekkalErtekelt")]
-		public bool? evaluatedByPercent { get; set; }
+		public Boolean? evaluatedByPercent { get; set; }
 		[JsonPropertyName("pontszammalErtekelt")]
-		public bool? evaluatedByScore { get; set; }
+		public Boolean? evaluatedByScore { get; set; }
 		[JsonPropertyName("szoveggelErtekelt")]
-		public bool? evaluatedByText { get; set; }
+		public Boolean? evaluatedByText { get; set; }
 		[JsonPropertyName("ertekelesOsztalyzatNev")]
 		public string? evaluationMark { get; set; }
 		[JsonPropertyName("ertekelesSzazalek")]
@@ -25,14 +30,14 @@ namespace TTMC.Kréta
 		[JsonPropertyName("ertekelesSzoveg")]
 		public string? evaluationText { get; set; }
 		[JsonPropertyName("id")]
-		public long id { get; set; }
+		public long? id { get; set; }
 		[JsonPropertyName("ertekelveVagyElfogadva")]
-		public bool? isEvaluatedOrAccepted { get; set; }
+		public Boolean? isEvaluatedOrAccepted { get; set; }
 		[JsonPropertyName("szoveg")]
 		public string? solutionText { get; set; }
 		[JsonPropertyName("statuszId")]
-		public int statusId { get; set; }
+		public int? statusId { get; set; }
 		[JsonPropertyName("egyediId")]
-		public string? uid { get; set; }
+		public string? uniqueId { get; set; }
 	}
 }

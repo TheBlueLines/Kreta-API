@@ -1,26 +1,31 @@
-﻿using System.Text.Json.Serialization;
+/*
+	This file is auto generated using Kréta Builder by TheBlueLines
+	Generated on: 2023. 12. 13. 21:07:33
+*/
+
+using System.Text.Json.Serialization;
 
 namespace TTMC.Kréta
 {
 	public class Note
 	{
 		[JsonPropertyName("Tartalom")]
-		public string? content {  get; set; }
+		public string? content { get; set; }
 		[JsonPropertyName("KeszitesDatuma")]
-		public string? creatingTimeAsString {  get; set; }
+		public string? creatingTimeAsString { get; set; }
 		[JsonPropertyName("Datum")]
-		public string? dateAsString {  get; set; }
+		public string? dateAsString { get; set; }
 		[JsonPropertyName("OsztalyCsoport")]
-		public UidStructure? group {  get; set; }
+		public UidStructure? group { get; set; }
 		[JsonPropertyName("LattamozasDatuma")]
-		public string? seenByTutelaryAsString {  get; set; }
+		public string? seenByTutelaryAsString { get; set; }
 		[JsonPropertyName("KeszitoTanarNeve")]
-		public string? teacher {  get; set; }
+		public string? teacher { get; set; }
 		[JsonPropertyName("Cim")]
-		public string? title {  get; set; }
+		public string? title { get; set; }
 		[JsonPropertyName("Tipus")]
-		public ValueDescriptor? type {  get; set; }
+		public ValueDescriptor? type { get; set; }
 		[JsonPropertyName("Uid")]
-		public string? uid {  get; set; }
+		public string? uid { get; set; }
 	}
 }

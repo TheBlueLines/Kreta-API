@@ -1,4 +1,9 @@
-﻿using System.Text.Json.Serialization;
+/*
+	This file is auto generated using Kréta Builder by TheBlueLines
+	Generated on: 2023. 12. 13. 21:07:33
+*/
+
+using System.Text.Json.Serialization;
 
 namespace TTMC.Kréta
 {
@@ -15,18 +20,18 @@ namespace TTMC.Kréta
 		public class CustomizationSettings
 		{
 			[JsonPropertyName("ErtekelesekMegjelenitesenekKesleltetesenekMerteke")]
-			public int delayOfNotifications { get; set; }
+			public int? delayOfNotifications { get; set; }
 			[JsonPropertyName("IsOsztalyAtlagMegjeleniteseEllenorzoben")]
-			public bool isClassAverageVisible { get; set; }
+			public bool? isClassAverageVisible { get; set; }
 			[JsonPropertyName("IsTanorakTemajaMegtekinthetoEllenorzoben")]
-			public bool isLessonsThemeVisible { get; set; }
+			public bool? isLessonsThemeVisible { get; set; }
 			[JsonPropertyName("KovetkezoTelepitesDatuma")]
 			public string? nextServerDeployAsString { get; set; }
 		}
 		public class SystemModule
 		{
 			[JsonPropertyName("IsAktiv")]
-			public bool isActive { get; set; }
+			public bool? isActive { get; set; }
 			[JsonPropertyName("Tipus")]
 			public string? type { get; set; }
 			[JsonPropertyName("Url")]

@@ -1,4 +1,9 @@
-﻿using System.Text.Json.Serialization;
+/*
+	This file is auto generated using Kréta Builder by TheBlueLines
+	Generated on: 2023. 12. 13. 21:07:32
+*/
+
+using System.Text.Json.Serialization;
 
 namespace TTMC.Kréta
 {
@@ -13,7 +18,7 @@ namespace TTMC.Kréta
 		[JsonPropertyName("dokumentumSablonUtvonal")]
 		public string? documentTemplatePath { get; set; }
 		[JsonPropertyName("azonosito")]
-		public int? id { get; set; }
+		public string? id { get; set; }
 		[JsonPropertyName("nev")]
 		public string? name { get; set; }
 		[JsonPropertyName("rovidNev")]

@@ -1,4 +1,9 @@
-﻿using System.Text.Json.Serialization;
+/*
+	This file is auto generated using Kréta Builder by TheBlueLines
+	Generated on: 2023. 12. 13. 21:07:33
+*/
+
+using System.Text.Json.Serialization;
 
 namespace TTMC.Kréta
 {
@@ -28,5 +33,14 @@ namespace TTMC.Kréta
 		public ValueDescriptor? type { get; set; }
 		[JsonPropertyName("Uid")]
 		public string? uid { get; set; }
+		public class Lesson
+		{
+			[JsonPropertyName("VegDatum")]
+			public string? endTimeAsString { get; set; }
+			[JsonPropertyName("Oraszam")]
+			public int? scheduleNumber { get; set; }
+			[JsonPropertyName("KezdoDatum")]
+			public string? startTimeAsString { get; set; }
+		}
 	}
 }

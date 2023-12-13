@@ -1,4 +1,9 @@
-﻿using System.Text.Json.Serialization;
+/*
+	This file is auto generated using Kréta Builder by TheBlueLines
+	Generated on: 2023. 12. 13. 21:07:32
+*/
+
+using System.Text.Json.Serialization;
 
 namespace TTMC.Kréta
 {
@@ -15,15 +20,15 @@ namespace TTMC.Kréta
 		[JsonPropertyName("feladatGroupId")]
 		public string? groupId { get; set; }
 		[JsonPropertyName("id")]
-		public long id { get; set; }
+		public long? id { get; set; }
 		[JsonPropertyName("elfogadottNemElfogadott")]
-		public bool isAccepted { get; set; }
+		public bool? isAccepted { get; set; }
 		[JsonPropertyName("osztalyzattalErtekelt")]
-		public bool isEvaluationByMark { get; set; }
+		public bool? isEvaluationByMark { get; set; }
 		[JsonPropertyName("szazalekkalErtekelt")]
-		public bool isEvaluationByPercentage { get; set; }
+		public bool? isEvaluationByPercentage { get; set; }
 		[JsonPropertyName("szoveggelErtekelt")]
-		public bool isEvaluationByText { get; set; }
+		public bool? isEvaluationByText { get; set; }
 		[JsonPropertyName("statusz")]
 		public State? state { get; set; }
 		[JsonPropertyName("alfeladatBeadasok")]
@@ -33,7 +38,7 @@ namespace TTMC.Kréta
 			[JsonPropertyName("nev")]
 			public string? stateName { get; set; }
 			[JsonPropertyName("id")]
-			public long uid { get; set; }
+			public long? uid { get; set; }
 		}
 	}
 }

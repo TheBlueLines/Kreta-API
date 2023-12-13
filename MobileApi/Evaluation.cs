@@ -1,4 +1,9 @@
-﻿using System.Text.Json.Serialization;
+/*
+	This file is auto generated using Kréta Builder by TheBlueLines
+	Generated on: 2023. 12. 13. 21:07:33
+*/
+
+using System.Text.Json.Serialization;
 
 namespace TTMC.Kréta
 {
@@ -23,7 +28,7 @@ namespace TTMC.Kréta
 		[JsonPropertyName("SzovegesErtekelesRovidNev")]
 		public string? shortValue { get; set; }
 		[JsonPropertyName("SortIndex")]
-		public int sortIndex { get; set; }
+		public int? sortIndex { get; set; }
 		[JsonPropertyName("Tantargy")]
 		public SubjectDescriptor? subject { get; set; }
 		[JsonPropertyName("ErtekeloTanarNeve")]

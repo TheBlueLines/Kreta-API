@@ -1,13 +1,18 @@
-﻿using System.Text.Json.Serialization;
+/*
+	This file is auto generated using Kréta Builder by TheBlueLines
+	Generated on: 2023. 12. 13. 21:07:32
+*/
+
+using System.Text.Json.Serialization;
 
 namespace TTMC.Kréta
 {
 	public class Addressee
 	{
 		[JsonPropertyName("azonosito")]
-		public long id { get; set; }
+		public string? id { get; set; }
 		[JsonPropertyName("kretaAzonosito")]
-		public long kretaId { get; set; }
+		public long? kretaId { get; set; }
 		[JsonPropertyName("nev")]
 		public string? name { get; set; }
 		[JsonPropertyName("tipus")]
@@ -19,7 +24,7 @@ namespace TTMC.Kréta
 			[JsonPropertyName("leiras")]
 			public string? typeDescription { get; set; }
 			[JsonPropertyName("azonosito")]
-			public long typeId { get; set; }
+			public long? typeId { get; set; }
 			[JsonPropertyName("nev")]
 			public string? typeName { get; set; }
 			[JsonPropertyName("rovidNev")]
