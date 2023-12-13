@@ -9,6 +9,6 @@ namespace TTMC.Kréta
 		[JsonPropertyName("teljesFajlNev")]
 		public string? fileName { get; set; }
 		[JsonPropertyName("meretInBytes")]
-		public string? sizeInBytes { get; set; }
+		public long? sizeInBytes { get; set; }
 	}
 }

@@ -26,7 +26,7 @@ namespace TTMC.Kréta
 		public string? name { get; set; }
 		[JsonPropertyName("ertesitesiEmailCim")]
 		public string? notificationEmailAddress { get; set; }
-		[JsonPropertyName("intezmenyCim")]
+		[JsonPropertyName("omAzonosito")]
 		public string? omId { get; set; }
 	}
 }
