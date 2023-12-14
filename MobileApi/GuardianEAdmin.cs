@@ -1,8 +1,3 @@
-/*
-	This file is auto generated using Kréta Builder by TheBlueLines
-	Generated on: 2023. 12. 13. 21:07:33
-*/
-
 using System.Text.Json.Serialization;
 
 namespace TTMC.Kréta
@@ -10,19 +5,19 @@ namespace TTMC.Kréta
 	public class GuardianEAdmin
 	{
 		[JsonPropertyName("tanuloOsztalyKretaAzonosito")]
-		public long? classId { get; set; }
+		public long classId { get; set; }
 		[JsonPropertyName("emailCim")]
 		public string? emailAddress { get; set; }
 		[JsonPropertyName("gondviseloNev")]
 		public string? guardianName { get; set; }
 		[JsonPropertyName("isTorvenyesKepviselo")]
-		public Boolean? isLegalRepresentative { get; set; }
+		public bool isLegalRepresentative { get; set; }
 		[JsonPropertyName("isSZMK")]
-		public Boolean? isSzmk { get; set; }
+		public bool isSzmk { get; set; }
 		[JsonPropertyName("isSZMKHelyettes")]
-		public Boolean? isSzmkDeputy { get; set; }
+		public bool isSzmkDeputy { get; set; }
 		[JsonPropertyName("kretaAzonosito")]
-		public long? kretaId { get; set; }
+		public long kretaId { get; set; }
 		[JsonPropertyName("rokonsagiFok")]
 		public string? relationType { get; set; }
 		[JsonPropertyName("tanuloOsztaly")]
@@ -36,10 +31,10 @@ namespace TTMC.Kréta
 		[JsonPropertyName("sZMKOsztalyHelyettes")]
 		public string? szmkClassDeputy { get; set; }
 		[JsonPropertyName("sZMKOsztalyHelyettesKretaAzonosito")]
-		public long? szmkClassDeputyKretaId { get; set; }
+		public long szmkClassDeputyKretaId { get; set; }
 		[JsonPropertyName("sZMKOsztalyKretaAlkalmazott")]
-		public long? szmkClassKretaEmployee { get; set; }
+		public long szmkClassKretaEmployee { get; set; }
 		[JsonPropertyName("sZMKOsztalyKretaAzonosito")]
-		public long? szmkClassKretaId { get; set; }
+		public long szmkClassKretaId { get; set; }
 	}
 }

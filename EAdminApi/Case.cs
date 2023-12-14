@@ -1,8 +1,3 @@
-/*
-	This file is auto generated using Kréta Builder by TheBlueLines
-	Generated on: 2023. 12. 13. 21:07:32
-*/
-
 using System.Text.Json.Serialization;
 
 namespace TTMC.Kréta
@@ -60,7 +55,7 @@ namespace TTMC.Kréta
 		[JsonPropertyName("tanuloKeresztNev")]
 		public string? studentFirstName { get; set; }
 		[JsonPropertyName("isDigitalisanBekuldve")]
-		public Boolean? submittedDigitally { get; set; }
+		public bool submittedDigitally { get; set; }
 		[JsonPropertyName("teendoLista")]
 		public List<ToDoItem>? toDoItem { get; set; }
 		[JsonPropertyName("tipus")]

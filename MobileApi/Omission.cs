@@ -1,8 +1,3 @@
-/*
-	This file is auto generated using Kréta Builder by TheBlueLines
-	Generated on: 2023. 12. 13. 21:07:33
-*/
-
 using System.Text.Json.Serialization;
 
 namespace TTMC.Kréta
@@ -14,7 +9,7 @@ namespace TTMC.Kréta
 		[JsonPropertyName("Datum")]
 		public string? dateAsString { get; set; }
 		[JsonPropertyName("KesesPercben")]
-		public int? delayTimeMinutes { get; set; }
+		public int delayTimeMinutes { get; set; }
 		[JsonPropertyName("OsztalyCsoport")]
 		public UidStructure? group { get; set; }
 		[JsonPropertyName("IgazolasAllapota")]
@@ -38,7 +33,7 @@ namespace TTMC.Kréta
 			[JsonPropertyName("VegDatum")]
 			public string? endTimeAsString { get; set; }
 			[JsonPropertyName("Oraszam")]
-			public int? scheduleNumber { get; set; }
+			public int scheduleNumber { get; set; }
 			[JsonPropertyName("KezdoDatum")]
 			public string? startTimeAsString { get; set; }
 		}

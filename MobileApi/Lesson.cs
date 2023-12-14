@@ -1,8 +1,3 @@
-/*
-	This file is auto generated using Kréta Builder by TheBlueLines
-	Generated on: 2023. 12. 13. 21:07:33
-*/
-
 using System.Text.Json.Serialization;
 
 namespace TTMC.Kréta
@@ -16,7 +11,7 @@ namespace TTMC.Kréta
 		[JsonPropertyName("OsztalyCsoport")]
 		public UidNameStructure? classGroup { get; set; }
 		[JsonPropertyName("Oraszam")]
-		public int? classScheduleNumber { get; set; }
+		public int classScheduleNumber { get; set; }
 		[JsonPropertyName("TeremNeve")]
 		public string? classroom { get; set; }
 		[JsonPropertyName("FeladatGroupUid")]
@@ -30,13 +25,13 @@ namespace TTMC.Kréta
 		[JsonPropertyName("HaziFeladatUid")]
 		public string? homeWorkUid { get; set; }
 		[JsonPropertyName("IsTanuloHaziFeladatEnabled")]
-		public bool? homeworkEditedByStudentEnabled { get; set; }
+		public bool homeworkEditedByStudentEnabled { get; set; }
 		[JsonPropertyName("IsDigitalisOra")]
-		public bool? isDigitalLesson { get; set; }
+		public bool isDigitalLesson { get; set; }
 		[JsonPropertyName("NyelviFeladatGroupUid")]
 		public string? languageTaskGroupId { get; set; }
 		[JsonPropertyName("OraEvesSorszama")]
-		public int? lessonNumber { get; set; }
+		public int lessonNumber { get; set; }
 		[JsonPropertyName("Nev")]
 		public string? name { get; set; }
 		[JsonPropertyName("TanuloJelenlet")]

@@ -1,8 +1,3 @@
-/*
-	This file is auto generated using Kréta Builder by TheBlueLines
-	Generated on: 2023. 12. 13. 21:07:33
-*/
-
 using System.Text.Json.Serialization;
 
 namespace TTMC.Kréta
@@ -18,11 +13,11 @@ namespace TTMC.Kréta
 		[JsonPropertyName("OktatasNevelesiFeladat")]
 		public ValueDescriptor? educationType { get; set; }
 		[JsonPropertyName("IsAktiv")]
-		public bool? isActive { get; set; }
+		public bool isActive { get; set; }
 		[JsonPropertyName("Nev")]
 		public string? name { get; set; }
 		[JsonPropertyName("OktatasNevelesiFeladatSortIndex")]
-		public int? sortIndex { get; set; }
+		public int sortIndex { get; set; }
 		[JsonPropertyName("Tipus")]
 		public string? type { get; set; }
 		[JsonPropertyName("Uid")]

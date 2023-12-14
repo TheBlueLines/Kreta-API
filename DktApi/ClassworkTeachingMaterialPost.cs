@@ -1,8 +1,3 @@
-/*
-	This file is auto generated using Kréta Builder by TheBlueLines
-	Generated on: 2023. 12. 13. 21:07:32
-*/
-
 using System.Text.Json.Serialization;
 
 namespace TTMC.Kréta
@@ -10,19 +5,19 @@ namespace TTMC.Kréta
 	public class ClassworkTeachingMaterialPost
 	{
 		[JsonPropertyName("osztalyId")]
-		public long? classId { get; set; }
+		public long classId { get; set; }
 		[JsonPropertyName("feladatId")]
-		public long? classworkId { get; set; }
+		public long classworkId { get; set; }
 		[JsonPropertyName("datum")]
 		public string? date { get; set; }
 		[JsonPropertyName("alkalmazottId")]
-		public long? employeeId { get; set; }
+		public long employeeId { get; set; }
 		[JsonPropertyName("csoportId")]
-		public long? groupId { get; set; }
+		public long groupId { get; set; }
 		[JsonPropertyName("oraszam")]
-		public long? lessonNumber { get; set; }
+		public long lessonNumber { get; set; }
 		[JsonPropertyName("tantargyId")]
-		public long? subjectId { get; set; }
+		public long subjectId { get; set; }
 		[JsonPropertyName("idopont")]
 		public string? time { get; set; }
 	}

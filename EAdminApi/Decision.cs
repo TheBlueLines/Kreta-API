@@ -1,8 +1,3 @@
-/*
-	This file is auto generated using Kréta Builder by TheBlueLines
-	Generated on: 2023. 12. 13. 21:07:32
-*/
-
 using System.Text.Json.Serialization;
 
 namespace TTMC.Kréta
@@ -26,7 +21,7 @@ namespace TTMC.Kréta
 		[JsonPropertyName("indoklas")]
 		public string? justification { get; set; }
 		[JsonPropertyName("isDigitalisanKikuldendo")]
-		public Boolean? needToBeSendDigitally { get; set; }
+		public bool needToBeSendDigitally { get; set; }
 		[JsonPropertyName("postazasiStatusz")]
 		public PostState? postState { get; set; }
 		[JsonPropertyName("igazoltTavolletVegeDatum")]
@@ -34,6 +29,6 @@ namespace TTMC.Kréta
 		[JsonPropertyName("igazoltTavolletKezdeteDatum")]
 		public string? requestedAbsenceStartAsString { get; set; }
 		[JsonPropertyName("alairoKretaAzonosito")]
-		public int? signerId { get; set; }
+		public int signerId { get; set; }
 	}
 }

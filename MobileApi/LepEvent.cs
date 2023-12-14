@@ -1,8 +1,3 @@
-/*
-	This file is auto generated using Kréta Builder by TheBlueLines
-	Generated on: 2023. 12. 13. 21:07:33
-*/
-
 using System.Text.Json.Serialization;
 
 namespace TTMC.Kréta
@@ -20,9 +15,9 @@ namespace TTMC.Kréta
 		[JsonPropertyName("EloadasNev")]
 		public string? eventTitle { get; set; }
 		[JsonPropertyName("GondviseloElfogadas")]
-		public Boolean? hasGuardianPermission { get; set; }
+		public bool hasGuardianPermission { get; set; }
 		[JsonPropertyName("Megjelent")]
-		public bool? hasStudentAppeared { get; set; }
+		public bool hasStudentAppeared { get; set; }
 		[JsonPropertyName("SzervezetNev")]
 		public string? organizationName { get; set; }
 		[JsonPropertyName("Uid")]
