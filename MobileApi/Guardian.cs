@@ -6,6 +6,8 @@ namespace TTMC.Kréta
 	{
 		[JsonPropertyName("EmailCim")]
 		public string? email { get; set; }
+		[JsonPropertyName("IsNincsFelugyeletiJoga")]
+		public bool hasParentalRights { get; set; }
 		[JsonPropertyName("IsTorvenyesKepviselo")]
 		public bool isLegalRepresentative { get; set; }
 		[JsonPropertyName("Nev")]

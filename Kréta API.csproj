@@ -10,7 +10,20 @@
     <Authors>TheBlueLines</Authors>
     <Company>TTMC</Company>
     <Product>Kréta API</Product>
-    <Version>0.0.5</Version>
+    <Version>4.1.0</Version>
+    <Title>Kréta API</Title>
+    <Description>Kréta API C# Library</Description>
+    <PackageProjectUrl>https://nzx.hu/kreta-api/</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/TheBlueLines/Kreta-API</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>

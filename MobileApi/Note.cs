@@ -6,6 +6,8 @@ namespace TTMC.Kréta
 	{
 		[JsonPropertyName("Tartalom")]
 		public string? content { get; set; }
+		[JsonPropertyName("TartalomFormazott")]
+		public string? contentFormatted { get; set; }
 		[JsonPropertyName("KeszitesDatuma")]
 		public string? creatingTimeAsString { get; set; }
 		[JsonPropertyName("Datum")]

@@ -37,32 +37,27 @@ namespace TTMC.Kréta
 		public List<AnnouncedTest> GetAnnouncedTests(DateTime? fromDate = null, DateTime? toDate = null)
 		{
 			HttpResponseMessage resp = client.GetAsync($"/ellenorzo/v3/Sajat/BejelentettSzamonkeresek" + BuildQuery(fromDate, toDate)).Result;
-			string json = resp.Content.ReadAsStringAsync().Result;
-			return Deserialize<List<AnnouncedTest>>(json);
+			return Deserialize<List<AnnouncedTest>>(resp);
 		}
 		public List<ClassAverage> GetClassAverage(string taskUid, string? subjectUid = null)
 		{
 			HttpResponseMessage resp = client.GetAsync($"/ellenorzo/v3/sajat/Ertekelesek/Atlagok/OsztalyAtlagok?oktatasiNevelesiFeladatUid={taskUid}" + (subjectUid == null ? string.Empty : "&tantargyUid=" + subjectUid)).Result;
-			string json = resp.Content.ReadAsStringAsync().Result;
-			return Deserialize<List<ClassAverage>>(json);
+			return Deserialize<List<ClassAverage>>(resp);
 		}
 		public List<ClassMaster> GetClassMaster(string? uids = null)
 		{
 			HttpResponseMessage resp = client.GetAsync($"/ellenorzo/v3/felhasznalok/Alkalmazottak/Tanarok/Osztalyfonokok" + (uids == null ? string.Empty : "?Uids=" + uids)).Result;
-			string json = resp.Content.ReadAsStringAsync().Result;
-			return Deserialize<List<ClassMaster>>(json);
+			return Deserialize<List<ClassMaster>>(resp);
 		}
 		public ConsultingHour GetConsultingHour(string uid)
 		{
 			HttpResponseMessage resp = client.GetAsync($"/ellenorzo/v3/sajat/Fogadoorak/{uid}").Result;
-			string json = resp.Content.ReadAsStringAsync().Result;
-			return Deserialize<ConsultingHour>(json);
+			return Deserialize<ConsultingHour>(resp);
 		}
 		public List<ConsultingHourList> GetConsultingHours(DateTime? fromDate = null, DateTime? toDate = null)
 		{
 			HttpResponseMessage resp = client.GetAsync($"/ellenorzo/v3/sajat/Fogadoorak" + BuildQuery(fromDate, toDate)).Result;
-			string json = resp.Content.ReadAsStringAsync().Result;
-			return Deserialize<List<ConsultingHourList>>(json);
+			return Deserialize<List<ConsultingHourList>>(resp);
 		}
 		public bool GetDeviceGivenState()
 		{
@@ -77,68 +72,57 @@ namespace TTMC.Kréta
 		public List<Evaluation> GetEvaluations(DateTime? fromDate = null, DateTime? toDate = null)
 		{
 			HttpResponseMessage resp = client.GetAsync($"/ellenorzo/v3/sajat/Ertekelesek" + BuildQuery(fromDate, toDate)).Result;
-			string json = resp.Content.ReadAsStringAsync().Result;
-			return Deserialize<List<Evaluation>>(json);
+			return Deserialize<List<Evaluation>>(resp);
 		}
 		public List<Group> GetGroups()
 		{
 			HttpResponseMessage resp = client.GetAsync("/ellenorzo/v3/sajat/OsztalyCsoportok").Result;
-			string json = resp.Content.ReadAsStringAsync().Result;
-			return Deserialize<List<Group>>(json);
+			return Deserialize<List<Group>>(resp);
 		}
 		public Guardian4T GetGuardian4T()
 		{
 			HttpResponseMessage resp = client.GetAsync($"/ellenorzo/v3/sajat/GondviseloAdatlap").Result;
-			string json = resp.Content.ReadAsStringAsync().Result;
-			return Deserialize<Guardian4T>(json);
+			return Deserialize<Guardian4T>(resp);
 		}
 		public List<Homework> GetHomeworks(DateTime? fromDate = null, DateTime? toDate = null)
 		{
 			HttpResponseMessage resp = client.GetAsync($"/ellenorzo/v3/Sajat/HaziFeladatok" + BuildQuery(fromDate, toDate)).Result;
-			string json = resp.Content.ReadAsStringAsync().Result;
-			return Deserialize<List<Homework>>(json);
+			return Deserialize<List<Homework>>(resp);
 		}
 		public Homework GetHomework(string id)
 		{
 			HttpResponseMessage resp = client.GetAsync($"/ellenorzo/v3/Sajat/HaziFeladatok/{id}").Result;
-			string json = resp.Content.ReadAsStringAsync().Result;
-			return Deserialize<Homework>(json);
+			return Deserialize<Homework>(resp);
 		}
 		public List<LepEvent> GetLEPEvents()
 		{
 			HttpResponseMessage resp = client.GetAsync($"/ellenorzo/v3/Lep/Eloadasok").Result;
-			string json = resp.Content.ReadAsStringAsync().Result;
-			return Deserialize<List<LepEvent>>(json);
+			return Deserialize<List<LepEvent>>(resp);
 		}
 		public Lesson GetLesson(string uid)
 		{
 			HttpResponseMessage resp = client.GetAsync($"/ellenorzo/v3/Sajat/OrarendElem?orarendElemUid={uid}").Result;
-			string json = resp.Content.ReadAsStringAsync().Result;
-			return Deserialize<Lesson>(json);
+			return Deserialize<Lesson>(resp);
 		}
 		public List<Lesson> GetLessons(DateTime? fromDate = null, DateTime? toDate = null)
 		{
 			HttpResponseMessage resp = client.GetAsync($"/ellenorzo/v3/Sajat/OrarendElem" + BuildQuery(fromDate, toDate)).Result;
-			string json = resp.Content.ReadAsStringAsync().Result;
-			return Deserialize<List<Lesson>>(json);
+			return Deserialize<List<Lesson>>(resp);
 		}
 		public List<Note> GetNotes(DateTime? fromDate = null, DateTime? toDate = null)
 		{
 			HttpResponseMessage resp = client.GetAsync($"/ellenorzo/v3/Feljegyzesek" + BuildQuery(fromDate, toDate)).Result;
-			string json = resp.Content.ReadAsStringAsync().Result;
-			return Deserialize<List<Note>>(json);
+			return Deserialize<List<Note>>(resp);
 		}
 		public List<NoticeBoardItem> GetNoticeBoardItems()
 		{
 			HttpResponseMessage resp = client.GetAsync($"/ellenorzo/v3/FaliujsagElemek").Result;
-			string json = resp.Content.ReadAsStringAsync().Result;
-			return Deserialize<List<NoticeBoardItem>>(json);
+			return Deserialize<List<NoticeBoardItem>>(resp);
 		}
 		public List<Omission> GetOmissions(DateTime? fromDate = null, DateTime? toDate = null)
 		{
 			HttpResponseMessage resp = client.GetAsync($"/ellenorzo/v3/Mulasztasok" + BuildQuery(fromDate, toDate)).Result;
-			string json = resp.Content.ReadAsStringAsync().Result;
-			return Deserialize<List<Omission>>(json);
+			return Deserialize<List<Omission>>(resp);
 		}
 		public HttpContent GetRegistrationState()
 		{
@@ -148,26 +132,27 @@ namespace TTMC.Kréta
 		public SchoolYearCalendarEntry GetSchoolYearCalendar()
 		{
 			HttpResponseMessage resp = client.GetAsync($"/ellenorzo/v3/sajat/Intezmenyek/TanevRendjeElemek").Result;
-			string json = resp.Content.ReadAsStringAsync().Result;
-			return Deserialize<SchoolYearCalendarEntry>(json);
+			return Deserialize<SchoolYearCalendarEntry>(resp);
 		}
 		public Student GetStudent()
 		{
 			HttpResponseMessage resp = client.GetAsync($"/ellenorzo/v3/sajat/TanuloAdatlap").Result;
-			string json = resp.Content.ReadAsStringAsync().Result;
-            return Deserialize<Student>(json);
+			return Deserialize<Student>(resp);
 		}
 		public List<SubjectAverage> GetSubjectAverage(string uid)
 		{
 			HttpResponseMessage resp = client.GetAsync($"/ellenorzo/v3/sajat/Ertekelesek/Atlagok/TantargyiAtlagok?oktatasiNevelesiFeladatUid={uid}").Result;
-			string json = resp.Content.ReadAsStringAsync().Result;
-			return Deserialize<List<SubjectAverage>>(json);
+			return Deserialize<List<SubjectAverage>>(resp);
+		}
+		public TeszekRegistration getTeszekRegistration()
+		{
+			HttpResponseMessage resp = client.GetAsync($"/ellenorzo/v3/TargyiEszkoz/Regisztracio").Result;
+			return Deserialize<TeszekRegistration>(resp);
 		}
 		public List<TimeTableWeek> GetTimeTableWeeks(DateTime fromDate, DateTime toDate)
 		{
 			HttpResponseMessage resp = client.GetAsync($"/ellenorzo/v3/sajat/Intezmenyek/Hetirendek/Orarendi?orarendElemKezdoNapDatuma={fromDate.ToString("s")}&orarendElemVegNapDatuma={toDate.ToString("s")}").Result;
-			string json = resp.Content.ReadAsStringAsync().Result;
-			return Deserialize<List<TimeTableWeek>>(json);
+			return Deserialize<List<TimeTableWeek>>(resp);
 		}
 		public HttpContent postBankAccountNumber(BankAccountNumberPost bankAccountNumber)
 		{
@@ -210,17 +195,10 @@ namespace TTMC.Kréta
 			HttpResponseMessage resp = client.PostAsync($"/ellenorzo/v3/Lep/Eloadasok/GondviseloEngedelyezes", jsonContent).Result;
 			return resp.Content.ReadAsStringAsync().Result;
 		}
-		private T Deserialize<T>(string json)
+		private T Deserialize<T>(HttpResponseMessage response)
 		{
-			if (json.StartsWith('{') && json.EndsWith('}'))
-			{
-				Error? error = JsonSerializer.Deserialize<Error>(json);
-				if (error != null && !string.IsNullOrEmpty(error.error))
-				{
-					throw new(error.error);
-				}
-			}
-			try
+			string json = response.Content.ReadAsStringAsync().Result;
+			if (response.StatusCode == HttpStatusCode.OK)
 			{
 				T? temp = JsonSerializer.Deserialize<T>(json);
 				if (temp != null)
@@ -228,7 +206,14 @@ namespace TTMC.Kréta
 					return temp;
 				}
 			}
-			catch { }
+			else if (json.StartsWith('{') && json.EndsWith('}'))
+			{
+				Error? error = JsonSerializer.Deserialize<Error>(json);
+				if (error != null && !string.IsNullOrEmpty(error.error))
+				{
+					throw new(error.error);
+				}
+			}
 			throw new(json);
 		}
 		private string BuildQuery(DateTime? fromDate, DateTime? toDate)
