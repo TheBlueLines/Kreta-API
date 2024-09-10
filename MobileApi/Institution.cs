@@ -18,6 +18,8 @@ namespace TTMC.Kréta
 			public int delayOfNotifications { get; set; }
 			[JsonPropertyName("IsOsztalyAtlagMegjeleniteseEllenorzoben")]
 			public bool isClassAverageVisible { get; set; }
+			[JsonPropertyName("IsElerhetosegSzerkesztheto")]
+			public bool isContactDataEditable { get; set; }
 			[JsonPropertyName("IsTanorakTemajaMegtekinthetoEllenorzoben")]
 			public bool isLessonsThemeVisible { get; set; }
 			[JsonPropertyName("KovetkezoTelepitesDatuma")]

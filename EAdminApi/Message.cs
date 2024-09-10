@@ -6,6 +6,8 @@ namespace TTMC.Kréta
 	{
 		[JsonPropertyName("cimzettLista")]
 		public List<Addressee>? addressList { get; set; }
+		[JsonPropertyName("isCimzettekElrejtve")]
+		public bool addressesHidden { get; set; }
 		[JsonPropertyName("csatolmanyok")]
 		public List<Attachment>? attachmentList { get; set; }
 		[JsonPropertyName("azonosito")]

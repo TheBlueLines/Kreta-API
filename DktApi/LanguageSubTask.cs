@@ -18,5 +18,7 @@ namespace TTMC.Kréta
 		public string? title { get; set; }
 		[JsonPropertyName("xeropanLessonId")]
 		public long xeropanLessonId { get; set; }
+		[JsonPropertyName("xeropanLessonTypeId")]
+		public int xeropanLessonTypeId { get; set; }
 	}
 }
